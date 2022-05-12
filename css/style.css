@@ -1,0 +1,95 @@
+:root {
+  --brightness: 100%; /*How light the scene is*/
+}
+
+body {
+	display: flex;
+	margin: 0;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+	/*background: black;*/
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.face,
+.hour,
+.minute,
+.second {
+	display: flex;
+    position: absolute;
+	align-items: center;
+    justify-content: center;
+}
+
+.face {
+	z-index: 1;
+	height: 100vmin;
+    width: 100vmin;
+}
+
+.hour {
+	z-index: 2;
+	height: 70vmin;
+    width: 70vmin;
+}
+
+.minute {
+	z-index: 3;
+	height: 70vmin;
+    width: 70vmin;
+}
+
+.second {
+	z-index: 4;
+	height: 70vmin;
+    width: 70vmin;
+}
+
+.colorPrimary {
+	filter: hue-rotate(0deg) saturate(0%) brightness(calc(var(--brightness)*4));  /*Silver*/
+}
+
+.colorSecondary {
+    
+	filter: hue-rotate(60deg) saturate(50%) brightness(calc(var(--brightness)*4)); /*Gold*/
+}
+
+.colorDial {
+	filter: hue-rotate(0deg) saturate(0%) brightness(calc(var(--brightness)/2)); /*Very dark grey*/
+}
+
+.colorLume {
+	filter: hue-rotate(120deg) saturate(100%) brightness(calc(var(--brightness)*1)); /*Green (wip)*/
+}
+
+.shading {
+	filter: hue-rotate(180deg) saturate(100%) brightness(calc(var(--brightness)*1));  /*Silver*/
+	display: none;
+}
+
+.dive {
+	/*display: none;*/
+}
+.fliegerA {
+	display: none;
+}
+
+.dark { /*Do I need this?*/
+	display: flex;
+    position: absolute;
+	align-items: center;
+    justify-content: center;
+	height: 100vh;
+    width: 100vw;
+	z-index: 5;
+	background-color: black;
+	opacity: 0.85;
+	display: none;  /*Hide it for now*/
+}
