@@ -13,58 +13,30 @@ body {
 	/*background: black;*/
 }
 
+img {
+	width: 100%;
+	height: 100%;
+}
+
 .container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.face,
-.hour,
-.minute,
-.second {
-	display: flex;
+.watch {
     position: absolute;
-	align-items: center;
-    justify-content: center;
-}
-
-.face {
-	z-index: 1;
 	height: 100vmin;
     width: 100vmin;
 }
-
-.hour {
-	z-index: 2;
-	height: 70vmin;
-    width: 70vmin;
-}
-
-.minute {
-	z-index: 3;
-	height: 100vmin;
-    width: 100vmin;
-}
-
-.second {
-	z-index: 4;
-	height: 70vmin;
-    width: 70vmin;
-}
-
 
 .shading {
-	filter: hue-rotate(180deg) saturate(100%) brightness(calc(var(--brightness)*1));  /*Silver*/
-	display: none;
+	filter: brightness(var(--brightness));
 }
 
-.dive {
+
 	/*display: none;*/
-}
-.fliegerA {
-	display: none;
-}
+
 
 .dark { /*Do I need this?*/
 	display: flex;
