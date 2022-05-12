@@ -1,16 +1,21 @@
+setInterval(() => {
+	d = new Date(); //object of date()
+	hr = d.getHours();
+	min = d.getMinutes();
+	sec = d.getSeconds();
+	ms = d.getMilliseconds();
+	hr_rotation = 30 * hr; //converting current time
+	min_rotation = 6 * min;
+	sec_rotation = 6 * sec;
+	ms_rotation = ms / 166.666667;
 
-const multiStr = `
-    Hey there!
-    How are you?
-    Do you 
-    have 
-    time
-    for a
-    quick 
-    call?
-`;
+	hour.style.transform = `rotate(${(hr_rotation)+(min_rotation/12)+(sec_rotation/720)}deg)`;
+	minute.style.transform = `rotate(${(min_rotation)+(sec_rotation/60)+(ms_rotation/166.666667)}deg)`;
+	second.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
+	
+}, 166.66667);
 
-const str = "Hello, world!";
+
 
 //const watchContainer = document.getElementById('watchContainer');
 //watchContainer.innerHTML = str;

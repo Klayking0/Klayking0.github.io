@@ -53,22 +53,6 @@ body {
     width: 70vmin;
 }
 
-.colorPrimary {
-	filter: hue-rotate(0deg) saturate(0%) brightness(calc(var(--brightness)*4));  /*Silver*/
-}
-
-.colorSecondary {
-    
-	filter: hue-rotate(60deg) saturate(50%) brightness(calc(var(--brightness)*4)); /*Gold*/
-}
-
-.colorDial {
-	filter: hue-rotate(0deg) saturate(0%) brightness(calc(var(--brightness)/2)); /*Very dark grey*/
-}
-
-.colorLume {
-	filter: hue-rotate(120deg) saturate(100%) brightness(calc(var(--brightness)*1)); /*Green (wip)*/
-}
 
 .shading {
 	filter: hue-rotate(180deg) saturate(100%) brightness(calc(var(--brightness)*1));  /*Silver*/
