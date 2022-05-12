@@ -18,15 +18,13 @@ setInterval(() => {
 	
 }, 166.66667);
 
-//Day-night mode toggle
-	const nightbtn = document.getElementById('cocktail1');
-	nightbtn.addEventListener('click', function onClick(event) {
-		openFullscreen()
-	});
-
+//Select an element to be full screen button
+const fsButton = document.getElementById('cocktail1');
+fsButton.addEventListener('click', function onClick(event) {
+	openFullscreen()
+});
 /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.documentElement;
-
 /* View in fullscreen */
 function openFullscreen() {
   if (elem.requestFullscreen) {
@@ -38,16 +36,6 @@ function openFullscreen() {
   }
 }
 
-/* Close fullscreen */
-function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
-    document.msExitFullscreen();
-  }
-}
 
 //const watchContainer = document.getElementById('watchContainer');
 //watchContainer.innerHTML = str;
