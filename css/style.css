@@ -1,5 +1,6 @@
 :root {
   --brightness: 100%; /*How light the scene is*/
+  	overflow: hidden;
 }
 
 body {
@@ -42,8 +43,8 @@ body {
 
 .minute {
 	z-index: 3;
-	height: 70vmin;
-    width: 70vmin;
+	height: 100vmin;
+    width: 100vmin;
 }
 
 .second {
