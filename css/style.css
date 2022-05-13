@@ -19,6 +19,7 @@ body {
 p1 {
 	font-family: "Courier New", Monospace;
 	color: #008800;
+	font-size: large;
 	/*filter: brightness(var(--lume));*/
 }
 
@@ -31,7 +32,7 @@ img {
 .menu {
 	display: flex;
 	flex-direction: column;
-	position: absolute;
+	position: fixed;
 	left: 0px;
 	top: 0px;
 	height: 100vh;
@@ -81,6 +82,8 @@ input[type=range]::-webkit-slider-runnable-track {
 	/*filter: brightness(var(--lume));*/
 	border: none;
 	border-radius: 3px;
+	margin-top: -8px;
+	margin-left: 10px;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -106,26 +109,28 @@ input[type=range]::-webkit-slider-thumb:hover {
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	border: none;
+	border: 1px solid #008800;
+	border-radius: 10px;
 	font-family: "Courier New", Monospace;
+	font-size: large;
+	text-align: center;
 	color: #008800;
 }
 
 #dropdown:hover {
-	background-color: #008800;
-  color: white;
+	font-weight: bolder;
 }
 
 button {
 	background-color: transparent;
 	border: 1px solid #008800;
 	border-radius: 10px;
-	margin-top:  10px;
+	margin-top: 5px;
 	color: #008800;
 	font-family: "Courier New", Monospace;
+	font-size: large;
 }
 
 button:hover {
-	background-color: #008800;
-  color: white;
+	font-weight: bolder;
 }
