@@ -11,12 +11,43 @@ body {
     width: 100vw;
     align-items: center;
     justify-content: center;
-	/*background: black;*/
+	/*background: transparent;*/
+}
+
+
+
+p1 {
+	font-family: "Courier New", Monospace;
+	color: #008800;
+	/*filter: brightness(var(--lume));*/
 }
 
 img {
+	display: flex;
 	width: 100%;
 	height: 100%;
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100vh;
+    align-items: flex-start;
+	justify-content: flex-start;
+	z-index: 1;
+}
+
+:fullscreen {/*I do not understand why this only hides the menu when I don't appear to have specified it... But hey, it works!*/
+  visibility: hidden;
+}
+
+.justifyEnd {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
 }
 
 .container {
@@ -39,19 +70,49 @@ img {
 	opacity: var(--lume);
 }
 
+input[type=range]{
+	-webkit-appearance: none;
+}
 
-	/*display: none;*/
+input[type=range]::-webkit-slider-runnable-track {
+	-webkit-appearance: none;
+	height: 2px;
+	background: #008800;
+	/*filter: brightness(var(--lume));*/
+	border: none;
+	border-radius: 3px;
+}
 
+input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	border: none;
+	height: 15px;
+	width: 15px;
+	border-radius: 50%;
+	background: #008800;
+	/*filter: brightness(var(--lume));*/
+	margin-top: -6px;
+}
 
-.dark { /*Do I need this?*/
-	display: flex;
-    position: absolute;
-	align-items: center;
-    justify-content: center;
-	height: 100vh;
-    width: 100vw;
-	z-index: 5;
-	background-color: black;
-	opacity: 0.85;
-	display: none;  /*Hide it for now*/
+#dropdown {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: none;
+	font-family: "Courier New", Monospace;
+	color: #008800;
+}
+
+button {
+	background-color: transparent;
+	border: 1px solid #008800;
+	border-radius: 10px;
+	margin-top:  10px;
+	color: #008800;
+	font-family: "Courier New", Monospace;
+}
+
+button:hover {
+	background-color: #008800;
+  color: white;
 }

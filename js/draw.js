@@ -19,39 +19,59 @@ setInterval(() => {
 	secondlume.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
 	date.style.transform = `rotate(${(dat_rotation)}deg)`;
 	
-	//Brightness logic
-	if (hr == 5) {
-		var brightness = min/60;
-		var lume = 1-brightness;
-	}
-	else if (hr == 21) {
-		var brightness = 1-(min/60);
-		var lume = 1-brightness;
-	}
-	else if (hr > 21 || hr < 5) {
-		var brightness = 0;
-		var lume = 1;
-	}
-	else {
-		var brightness = 1;
-		var lume = 0;
-	}
-	document.documentElement.style.setProperty('--brightness', brightness);
-	document.body.style.backgroundColor = 'hsl(200, 30%, '+brightness*80+'%)';
-	document.documentElement.style.setProperty('--lume', lume);
+}, 166.66667);//Interval defines the watch beat rate. (Interval of 166.66667 to simulate 21,600 BPH
+
+
+//Watch image selector function
+function watchSelect(value) {
+	var value = document.getElementById("dropdown").value;
+	document.getElementById('dateImg').src = "img/"+value+"/date.png";//Sets correct folder name in path
+	//document.getElementById('dateImg').style.display = "flex";//Re-activates the image if previously hidden due to missing element
+	document.getElementById('faceImg').src = "img/"+value+"/face.png";
+	//document.getElementById('faceImg').style.display = "flex";
+	document.getElementById('facelumeImg').src = "img/"+value+"/facelume.png";
+	//document.getElementById('facelumeImg').style.display = "flex";
+	document.getElementById('hourImg').src = "img/"+value+"/hour.png";
+	//document.getElementById('hourImg').style.display = "flex";
+	document.getElementById('hourlumeImg').src = "img/"+value+"/hourlume.png";
+	//document.getElementById('hourlumeImg').style.display = "flex";
+	document.getElementById('minuteImg').src = "img/"+value+"/minute.png";
+	document.getElementById('minutelumeImg').src = "img/"+value+"/minutelume.png";
+	document.getElementById('secondImg').src = "img/"+value+"/second.png";
+	document.getElementById('secondlumeImg').src = "img/"+value+"/secondlume.png";
 	
-}, 166.66667);
+	//Re-activates images if previously hidden due to missing element
+	var x = document.getElementsByClassName("imgDisplay");
+	var i;
+	for (i = 0; i < x.length; i++) {
+		x[i].style.visibility = 'visible';
+	}
+};
 
+//Calls the function on page load to populate the image sources
+document.getElementById("dropdown").onload = watchSelect();
 
+//Calls the function when the user selects an option from the selector
+document.getElementById("dropdown").oninput = function() {
+	watchSelect();
+};
+
+//Brightness slider
+document.getElementById("slider").oninput = function() {
+	document.body.style.backgroundColor =  'hsl(0, 0%, '+this.value+'%)';
+	document.documentElement.style.setProperty('--brightness', this.value/100);
+	document.documentElement.style.setProperty('--lume', 1-(this.value/100));
+	document.getElementById('dropdown').style.backgroundColor = 'hsl(0, 0%, '+this.value+'%)';
+};
 
 //Select an element to be full screen button
-const fsButton = document.getElementById('cocktail1');
+const fsButton = document.getElementById('fullscreenButton');
 fsButton.addEventListener('click', function onClick(event) {
-	openFullscreen()
+	openFullscreen();
 });
-/* Get the documentElement (<html>) to display the page in fullscreen */
+//Get the documentElement (<html>) to display the page in fullscreen
 var elem = document.documentElement;
-/* View in fullscreen */
+//View in fullscreen
 function openFullscreen() {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
@@ -62,10 +82,5 @@ function openFullscreen() {
   }
 }
 
-
-//const watchContainer = document.getElementById('watchContainer');
-//watchContainer.innerHTML = str;
-
-//document.getElementById('watchContainer').innerHTML += str;
 
 //https://www.freecodecamp.org/news/svg-javascript-tutorial/?msclkid=1949c10dd06e11ec9ebeb9f4e5aea11c

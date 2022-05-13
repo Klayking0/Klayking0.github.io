@@ -2,21 +2,29 @@
 <html>
 <body>
 
-<div id="cocktail1" class="container"> <!--Seiko Presage (Mockingbird)-->
-	<div id="date" class="watch brightness"><img src="img/cocktail1/date.png"></div><!--Date wheel-->
-	<div id="face" class="watch brightness"><img src="img/cocktail1/face.png"></div><!--Watch face-->
-	<div id="facelume" class="watch lume"><img src="img/cocktail1/facelume.png"></div><!--Watch face lume-->
-	<div id="hour" class="watch brightness"><img src="img/cocktail1/hour.png"></div><!--Hour hand-->
-	<div id="hourlume" class="watch lume"><img src="img/cocktail1/hourlume.png"></div><!--Hour hand lume-->
-	<div id="minute" class="watch brightness"><img src="img/cocktail1/minute.png"></div><!--Minute hand-->
-	<div id="minutelume" class="watch lume"><img src="img/cocktail1/minutelume.png"></div><!--Minute hand lume-->
-	<div id="second" class="watch brightness"><img src="img/cocktail1/second.png"></div><!--Second hand-->
-	<div id="secondlume" class="watch lume"><img src="img/cocktail1/secondlume.png"></div><!--Second hand lume-->
+<div class="menu">
+	<div>
+		<select id="dropdown">
+			<option value="cocktail">Seiko Presage Cocktail Time (Mockingbird)</option>
+			<option value="fliegerB">Flieger (B-Uhr)</option>
+		</select>
+	</div>
+	<div><input type="range" id="slider" value="100" min="0" max="100"></div>
+	<div><button type="button" id="fullscreenButton" >Fullscreen</button></div>
+	<div style="flex-grow: 1" class="justifyEnd"><p1>WatchApp<p1></div>
 </div>
 	
-	
-
-
+<div id="container" class="container"> <!--This contains all elements of the watch-->
+	<div id="date" class="watch brightness"><img id="dateImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Date wheel-->
+	<div id="face" class="watch brightness"><img id="faceImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Watch face-->
+	<div id="facelume" class="watch lume"><img id="facelumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Watch face lume-->
+	<div id="hour" class="watch brightness"><img id="hourImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Hour hand-->
+	<div id="hourlume" class="watch lume"><img id="hourlumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Hour hand lume-->
+	<div id="minute" class="watch brightness"><img id="minuteImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Minute hand-->
+	<div id="minutelume" class="watch lume"><img id="minutelumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Minute hand lume-->
+	<div id="second" class="watch brightness"><img id="secondImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Second hand-->
+	<div id="secondlume" class="watch lume"><img id="secondlumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Second hand lume-->
+</div>
 
 <link rel="stylesheet" href="css/style.css">
 <script src="js/draw.js"></script>
