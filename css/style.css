@@ -91,7 +91,15 @@ input[type=range]::-webkit-slider-thumb {
 	border-radius: 50%;
 	background: #008800;
 	/*filter: brightness(var(--lume));*/
+	height: 15px;
+	width: 15px;
 	margin-top: -6px;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+	height: 19px;
+	width: 19px;
+	margin-top: -8px;
 }
 
 #dropdown {
@@ -101,6 +109,11 @@ input[type=range]::-webkit-slider-thumb {
 	border: none;
 	font-family: "Courier New", Monospace;
 	color: #008800;
+}
+
+#dropdown:hover {
+	background-color: #008800;
+  color: white;
 }
 
 button {
