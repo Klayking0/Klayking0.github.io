@@ -14,9 +14,35 @@ setInterval(() => {
 	hour.style.transform = `rotate(${(hr_rotation)+(min_rotation/12)+(sec_rotation/720)}deg)`;
 	minute.style.transform = `rotate(${(min_rotation)+(sec_rotation/60)+(ms_rotation/166.666667)}deg)`;
 	second.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
+	hourlume.style.transform = `rotate(${(hr_rotation)+(min_rotation/12)+(sec_rotation/720)}deg)`;
+	minutelume.style.transform = `rotate(${(min_rotation)+(sec_rotation/60)+(ms_rotation/166.666667)}deg)`;
+	secondlume.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
 	date.style.transform = `rotate(${(dat_rotation)}deg)`;
 	
+	//Brightness logic
+	if (hr == 5) {
+		var brightness = min/60;
+		var lume = 1-brightness;
+	}
+	else if (hr == 21) {
+		var brightness = 1-(min/60);
+		var lume = 1-brightness;
+	}
+	else if (hr > 21 || hr < 5) {
+		var brightness = 0;
+		var lume = 1;
+	}
+	else {
+		var brightness = 1;
+		var lume = 0;
+	}
+	document.documentElement.style.setProperty('--brightness', brightness);
+	document.body.style.backgroundColor = 'hsl(200, 30%, '+brightness*80+'%)';
+	document.documentElement.style.setProperty('--lume', lume);
+	
 }, 166.66667);
+
+
 
 //Select an element to be full screen button
 const fsButton = document.getElementById('cocktail1');

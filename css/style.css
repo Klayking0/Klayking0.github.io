@@ -1,5 +1,6 @@
 :root {
-  --brightness: 100%; /*How light the scene is*/
+  --brightness: 1; /*How light the scene is*/
+  --lume: 0;
   	overflow: hidden;
 }
 
@@ -30,8 +31,12 @@ img {
     width: 100vmin;
 }
 
-.shading {
+.brightness {
 	filter: brightness(var(--brightness));
+}
+
+.lume {
+	opacity: var(--lume);
 }
 
 
