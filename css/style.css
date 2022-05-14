@@ -33,8 +33,9 @@ img {
 	display: flex;
 	flex-direction: column;
 	position: fixed;
-	left: 0px;
-	top: 0px;
+	/*left: 0px;*/
+	/*top: 0px;*/
+	width: 100vw;
 	height: 100vh;
     align-items: flex-start;
 	justify-content: flex-start;
