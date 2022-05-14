@@ -1,15 +1,12 @@
 :root {
   --brightness: 1; /*How light the scene is*/
   --lume: 0;
-  --vh: 0;
   	overflow: hidden;
 }
 
 body {
 	/*background: transparent;*/
 	margin: 0;
-	height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-	height: calc(var(--vh, 1vh) * 100);
 }
 
 p1 {
@@ -46,7 +43,7 @@ img {
 
 .container {
 	display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 	width: 100vw;
 	height: 100vh;
@@ -55,7 +52,7 @@ img {
 .watch {
 	display: flex;
     position: absolute;
-	height: 0;
+	height: 100%;
     width: 0;
 	align-items: center;
     justify-content: center;
