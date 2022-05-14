@@ -64,6 +64,7 @@ document.getElementById("slider").oninput = function() {
 	document.getElementById('dropdown').style.backgroundColor = 'hsl(0, 0%, '+this.value+'%)';
 };
 
+/*
 //Function to Hide the address bar on mobile
 hideMobAddress(function(){
 	window.scrollTo(0, 1);
@@ -73,6 +74,7 @@ hideMobAddress(function(){
 window.onload = function() {
 	hideMobAddress();
 };
+*/
 
 //Select an element to be full screen button
 const fsButton = document.getElementById('fullscreenButton');
