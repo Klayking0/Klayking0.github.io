@@ -19,6 +19,8 @@ p1 {
 }
 
 img {
+	display: flex;
+	position: fixed;
 	max-width: 100vw;
 	max-height: 100vh;
 }
