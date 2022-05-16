@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, user-scalable=no"><!--Disables mobile zoom-->
-	<meta name="mobile-web-app-capable" content="yes" /><!--Indicates it is a mobile app-->
+	<meta name="viewport" content="width=device-width, user-scalable=no"><!--Prevents  mobile zoom-->
+	<meta name="mobile-web-app-capable" content="yes" /><!--Mobile app capable-->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!--<link rel="manifest" href="manifest.json">Manifest will not be detected. Return to this problem later!-->
 </head>
 <body>
 
@@ -18,19 +19,10 @@
 	<div style="flex-grow: 1" class="justifyEnd"><p1>WatchApp<p1></div>
 </div>
 	
-<div id="container" class="container"> <!--This contains all elements of the watch-->
-	<div id="date" class="watch brightness"><img id="dateImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Date wheel-->
-	<div id="face" class="watch brightness"><img id="faceImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Watch face-->
-	<div id="facelume" class="watch lume"><img id="facelumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Watch face lume-->
-	<div id="hour" class="watch brightness"><img id="hourImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Hour hand-->
-	<div id="hourlume" class="watch lume"><img id="hourlumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Hour hand lume-->
-	<div id="minute" class="watch brightness"><img id="minuteImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Minute hand-->
-	<div id="minutelume" class="watch lume"><img id="minutelumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Minute hand lume-->
-	<div id="second" class="watch brightness"><img id="secondImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Second hand-->
-	<div id="secondlume" class="watch lume"><img id="secondlumeImg" class="imgDisplay" onerror="this.style.visibility='hidden'"></div><!--Second hand lume-->
+<div id="container" class="container">
+	<!--This will contain all elements of the watch when the JavaScript adds them-->
 </div>
 
-<link rel="manifest" href="/manifest.json" />
 <link rel="stylesheet" href="css/style.css">
 <script src="js/draw.js"></script>
 
