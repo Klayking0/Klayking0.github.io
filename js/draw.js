@@ -72,7 +72,7 @@ function watchSelect() {
 		hour(watch);
 		minute(watch);
 		second(watch);
-		analogueTime(10);//Beat rate goes in here
+		analogueTime(166.66667);//Beat rate goes in here
 	}
 	else if (watch == "fairfield") {
 		face(watch);
@@ -81,6 +81,13 @@ function watchSelect() {
 		minute(watch);
 		second(watch);
 		analogueTime(1000);//Beat rate goes in here
+	}
+	else if (watch == "grandseiko") {
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(10);//Beat rate goes in here
 	}
 };
 
