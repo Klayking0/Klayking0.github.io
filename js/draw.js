@@ -6,28 +6,36 @@ document.getElementById("slider").oninput = function() {
 	document.getElementById('dropdown').style.backgroundColor = 'hsl(0, 0%, '+this.value+'%)';
 };
 
-//Select an element to be full screen button
-const fsButton = document.getElementById('fullscreenButton');
-fsButton.addEventListener('click', function onClick(event) {
-	openFullscreen();
-});
+//Fullscreen toggle
+function fullscreen() {
+    var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+        (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+        (document.msFullscreenElement && document.msFullscreenElement !== null);
 
-//Get the documentElement (<html>) to display the page in fullscreen
-var elem = document.documentElement;
-
-//View in fullscreen
-function openFullscreen() {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.webkitRequestFullscreen) { /* Safari */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE11 */
-    elem.msRequestFullscreen();
-  }
+    var docElm = document.documentElement;
+    if (!isInFullScreen) {
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen();
+        } else if (docElm.mozRequestFullScreen) {
+            docElm.mozRequestFullScreen();
+        } else if (docElm.webkitRequestFullScreen) {
+            docElm.webkitRequestFullScreen();
+        } else if (docElm.msRequestFullscreen) {
+            docElm.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
 }
-
-//https://www.freecodecamp.org/news/svg-javascript-tutorial/?msclkid=1949c10dd06e11ec9ebeb9f4e5aea11c
-
 
 //Calls the watchSelect function on page load to populate the image sources
 document.getElementById("dropdown").onload = watchSelect();
@@ -65,6 +73,14 @@ function watchSelect() {
 		minute(watch);
 		second(watch);
 		analogueTime(10);//Beat rate goes in here
+	}
+	else if (watch == "fairfield") {
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(1000);//Beat rate goes in here
 	}
 };
 
@@ -219,3 +235,5 @@ function analogueTime(beat) {
 	
 	}, beat);//Watch beat rate passed into the function
 };
+
+//https://www.freecodecamp.org/news/svg-javascript-tutorial/?msclkid=1949c10dd06e11ec9ebeb9f4e5aea11c

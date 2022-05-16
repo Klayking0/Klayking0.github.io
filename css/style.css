@@ -11,7 +11,7 @@ body {
 
 p1 {
 	font-family: "Courier New", Monospace;
-	color: #008800;
+	color: #005500;
 	font-size: large;
 	/*filter: brightness(var(--lume));*/
 }
@@ -39,6 +39,7 @@ img {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
+	margin-bottom: 10px;
 }
 
 .container {
