@@ -64,7 +64,12 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		analogueTime(166.66667);//Beat rate goes in here
+		analogueTime(125);
+		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
+		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
+		//5Hz = 36000vph:  1000ms (1 sec) / 10 (degrees each tick (28800/60)/60=8) = analogueTime(100)
+		//vph from Hz: (Hz * 2) * 3600 (seconds in an hour) = vph
+		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
 	}
 	else if (watch == "cocktail") {
 		date(watch);
@@ -86,8 +91,26 @@ function watchSelect() {
 		face(watch);
 		hour(watch);
 		minute(watch);
-		second(watch);
+		second(watch);//marginTop, marginRight, marginBottom, marginLeft: Offsets the hand. Must include all 4 numbers or none.
 		analogueTime(10);//Beat rate goes in here
+	}
+	else if (watch == "khaki") {
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(166.66667);//Beat rate goes in here
+	}
+	else if (watch == "seagull") {
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch, 0, 16, 0, 0); //This offset is very experimental and not working consistently
+		analogueTime(166.66667);//Beat rate goes in here
 	}
 };
 
@@ -160,22 +183,32 @@ function minuteLume(watch) {
     container.appendChild(div);
 };
 
-function second(watch) {
+function second(watch, marginTop, marginRight, marginBottom, marginLeft) {
 	var container = document.getElementById("container");
 	var div = document.createElement("div");
 	div.id = "second";
 	div.className = "watch brightness";
 	div.innerHTML = "<img src='img/"+watch+"/second.png' id='secondImg' class='imgDisplay'>";
-    container.appendChild(div);
+    if (marginTop || marginRight || marginBottom || marginLeft) {
+		//This offset is very experimental and not working consistently
+		div.setAttribute("style", "margin: "+marginTop+"vh "+marginRight+"vw "+marginBottom+"vh "+marginLeft+"vw");
+		//div.setAttribute("style", "left: 45vw");
+	
+	}
+	container.appendChild(div);
 };
 
-function secondLume(watch) {
+function secondLume(watch, marginTop, marginRight, marginBottom, marginLeft) {
 	var container = document.getElementById("container");
 	var div = document.createElement("div");
 	div.id = "secondlume";
 	div.className = "watch lume";
 	div.innerHTML = "<img src='img/"+watch+"/secondlume.png' id='secondlumeImg' class='imgDisplay'>";
-    container.appendChild(div);
+    if (marginTop || marginRight || marginBottom || marginLeft) {
+		//This offset is very experimental and not working consistently
+		div.setAttribute("style", "margin: "+marginTop+"vh "+marginRight+"vw "+marginBottom+"vh "+marginLeft+"vw");
+	}
+	container.appendChild(div);
 };
 
 //Global variable so I can stop the interval outside of the analogueTime function
