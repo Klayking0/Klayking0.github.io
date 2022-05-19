@@ -55,7 +55,24 @@ function watchSelect() {
 	var watch = document.getElementById("dropdown").value;
 	
 	//Spawn the components required to make the selected watch
-	if (watch == "fliegerb") {
+	if (watch == "submariner") {
+		date(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(100);
+		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
+		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
+		//5Hz = 36000vph:  1000ms (1 sec) / 10 (degrees each tick (28800/60)/60=8) = analogueTime(100)
+		//vph from Hz: (Hz * 2) * 3600 (seconds in an hour) = vph
+		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
+	}
+	else if (watch == "fliegerb") {
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -65,11 +82,6 @@ function watchSelect() {
 		second(watch);
 		secondLume(watch);
 		analogueTime(125);
-		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
-		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
-		//5Hz = 36000vph:  1000ms (1 sec) / 10 (degrees each tick (28800/60)/60=8) = analogueTime(100)
-		//vph from Hz: (Hz * 2) * 3600 (seconds in an hour) = vph
-		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
 	}
 	else if (watch == "cocktail") {
 		date(watch);
