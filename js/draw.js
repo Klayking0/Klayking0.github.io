@@ -65,6 +65,8 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
+		bezel(watch, 120);//Number of clicks per rotation
+		bezelLume(watch);
 		analogueTime(100);
 		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
 		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
@@ -221,6 +223,40 @@ function secondLume(watch, marginTop, marginRight, marginBottom, marginLeft) {
 		div.setAttribute("style", "margin: "+marginTop+"vh "+marginRight+"vw "+marginBottom+"vh "+marginLeft+"vw");
 	}
 	container.appendChild(div);
+};
+
+function bezel(watch, clicks) {
+	var container = document.getElementById("container");
+	var div = document.createElement("div");
+	div.id = "bezel";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/bezel.png' id='bezelImg' class='imgDisplay'>";
+    container.appendChild(div);
+	//Bezel rotation
+	var bezelRotation = 0;
+	document.onmousewheel = function() {
+		if (bezelRotation < 360) {
+			bezelRotation-=(360/clicks);
+		}
+		else if (bezelRotation > 360) {
+			bezelRotation = 0;
+		}
+		if(document.body.contains(document.getElementById('bezel'))) {
+			document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
+		}
+		if(document.body.contains(document.getElementById('bezellume'))) {
+			document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
+		}
+	};
+};
+
+function bezelLume(watch) {
+	var container = document.getElementById("container");
+	var div = document.createElement("div");
+	div.id = "bezellume";
+	div.className = "watch lume";
+	div.innerHTML = "<img src='img/"+watch+"/bezellume.png' id='bezellumeImg' class='imgDisplay'>";
+    container.appendChild(div);
 };
 
 //Global variable so I can stop the interval outside of the analogueTime function
