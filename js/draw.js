@@ -74,6 +74,28 @@ function watchSelect() {
 		//vph from Hz: (Hz * 2) * 3600 (seconds in an hour) = vph
 		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
 	}
+	else if (watch == "westerland") {
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(125);//Beat rate goes in here
+	}
+	else if (watch == "dortmund") {
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(125);//Beat rate goes in here
+	}
 	else if (watch == "fliegerb") {
 		face(watch);
 		faceLume(watch);
