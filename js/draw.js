@@ -126,6 +126,17 @@ function watchSelect() {
 		second(watch, 0, 16, 0, 0); //This offset is very experimental and not working consistently
 		analogueTime(166.66667);//Beat rate goes in here
 	}
+	else if (watch == "mig") {
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(125);
+	}
 };
 
 //Function to clear the watch container
