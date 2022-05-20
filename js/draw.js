@@ -67,7 +67,7 @@ function watchSelect() {
 		secondLume(watch);
 		bezel(watch, 120);//Number of clicks per rotation
 		bezelLume(watch);
-		analogueTime(100);
+		analogueTime(100);//Beat rate goes in here
 		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
 		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
 		//5Hz = 36000vph:  1000ms (1 sec) / 10 (degrees each tick (28800/60)/60=8) = analogueTime(100)
@@ -83,7 +83,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		analogueTime(125);
+		analogueTime(125);//Beat rate goes in here
 	}
 	else if (watch == "cocktail") {
 		date(watch);
@@ -135,7 +135,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		analogueTime(125);
+		analogueTime(250);
 	}
 };
 
