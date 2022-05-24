@@ -88,6 +88,20 @@ function watchSelect() {
 		bezelLume(watch);
 		analogueTime(125);//Beat rate goes in here
 	}
+	else if (watch == "marathonmod2") {
+		date(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		bezel(watch, 120);//Number of clicks per rotation
+		bezelLume(watch);
+		analogueTime(125);//Beat rate goes in here
+	}
 	else if (watch == "submariner") {
 		face(watch);
 		faceLume(watch);
