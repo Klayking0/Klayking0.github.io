@@ -144,7 +144,8 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		analogueTime(166.66667);//Beat rate goes in here
+		analogueTime(166.66667, 22, 1);//Beat rate, hour date starts changing, hour day ends changing
+		//Do not define the dateStart / dayEnd values if you wish for instant day and/or date wheel changes
 	}
 	else if (watch == "cocktail") {
 		date(watch);
@@ -350,7 +351,13 @@ function bezel(watch, clicks) {
     container.appendChild(div);
 	//Bezel rotation
 	var bezelRotation = 0;
-	document.onmousewheel = function() {
+	//document.addEventListener('mousedown', mouseDown, false);
+	//document.addEventListener('touchstart', mouseDown, false);
+	document.addEventListener('mousemove', mouseMove, false);
+	document.addEventListener('touchmove', mouseMove, false);
+	//document.addEventListener('mouseup', mouseUp, false);
+	//document.addEventListener('touchend', mouseUp, false);
+	function mouseMove() {
 		if (bezelRotation < 360) {
 			bezelRotation-=(360/clicks);
 		}
@@ -379,7 +386,7 @@ function bezelLume(watch) {
 var interval;
 
 //Function to display the time & date
-function analogueTime(beat) {
+function analogueTime(beat, dateStart, dayEnd) {
 	interval = setInterval(() => {
 		//Finds any divs that can be rotated
 		var date = document.getElementById("date");
@@ -408,8 +415,8 @@ function analogueTime(beat) {
 		
 		//If div is present on the page, rotate it to show the time
 		if (date) {
-			if (hr >= 21) {//Enables smooth date turnover before midnight
-				dat_turn = 11.61290322580645 * ((hr_rotation - 630) / 90);
+			if (hr >= dateStart) {//Enables smooth date turnover before midnight
+				dat_turn = 11.61290322580645 * ((hr_rotation - (dateStart * 30)) / (720 - dateStart * 30));
 				//Figures are day wheel angle (360/31), hour hand angle at 21:00 (21*30), 90 degrees from 21:00 to 0:00
 			}
 			else {
@@ -419,9 +426,8 @@ function analogueTime(beat) {
 		}
 		
 		if (day) {
-			if (hr < 3) {//Enables smooth day turnover after midnight
-				da_turn = -51.42857142857143 * ((90 - hr_rotation) / 90);
-				//Figures are day wheel angle (360/31), hour hand angle at 21:00 (21*30), 90 degrees from 21:00 to 0:00
+			if (hr < dayEnd) {//Enables smooth day turnover after midnight
+				da_turn = -51.42857142857143 * (((dayEnd * 30) - hr_rotation) / (dayEnd * 30));
 			}
 			else {
 				da_turn = 0;
@@ -465,3 +471,8 @@ function analogueTime(beat) {
 };
 
 //https://www.freecodecamp.org/news/svg-javascript-tutorial/?msclkid=1949c10dd06e11ec9ebeb9f4e5aea11c
+
+//experimental drag dive bezel
+//let drag = false;
+//document.addEventListener(
+//        'mousemove', () => drag = true);
