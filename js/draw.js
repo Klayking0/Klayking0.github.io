@@ -161,6 +161,19 @@ function watchSelect() {
 		secondLume(watch);
 		analogueTime(125);//Beat rate goes in here
 	}
+	else if (watch == "seiko5") {
+		date(watch);
+		day(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(166.66667);//Beat rate goes in here
+	}
 	else if (watch == "cocktail") {
 		date(watch);
 		face(watch);
@@ -227,6 +240,15 @@ function date(watch) {
 	div.id = "date";
 	div.className = "watch brightness";
 	div.innerHTML = "<img src='img/"+watch+"/date.png' id='dateImg' class='imgDisplay'>";
+    container.appendChild(div);
+};
+
+function day(watch) {
+	var container = document.getElementById("container");
+	var div = document.createElement("div");
+	div.id = "day";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/day.png' id='dayImg' class='imgDisplay'>";
     container.appendChild(div);
 };
 
@@ -354,6 +376,7 @@ function analogueTime(beat) {
 	interval = setInterval(() => {
 		//Finds any divs that can be rotated
 		var date = document.getElementById("date");
+		var day = document.getElementById("day");
 		var hour = document.getElementById("hour");
 		var hourlume = document.getElementById("hourlume");
 		var minute = document.getElementById("minute");
@@ -363,44 +386,67 @@ function analogueTime(beat) {
 		
 		//Gets the date
 		d = new Date(); //object of date()
-		hr = d.getHours();
-		min = d.getMinutes();
-		sec = d.getSeconds();
 		ms = d.getMilliseconds();
+		sec = d.getSeconds();
+		min = d.getMinutes();
+		hr = d.getHours();
 		dat = d.getDate();
-		hr_rotation = 30 * hr; //converting current time
-		min_rotation = 6 * min;
-		sec_rotation = 6 * sec;
-		ms_rotation = ms / 166.666667;
+		da = d.getDay();
+		ms_rotation = (ms / 166.666667);//converting current time
+		sec_rotation = (sec * 6) + (ms_rotation);
+		min_rotation = (min * 6) + (sec_rotation / 60);
+		hr_rotation = (hr * 30) + (min_rotation / 12);
 		dat_rotation = 11.61290322580645 * (dat-1);
+		da_rotation = -51.42857142857143 * (da-1);
 		
 		//If div is present on the page, rotate it to show the time
 		if (date) {
-			date.style.transform = `rotate(${(dat_rotation)}deg)`;
+			if (hr >= 21) {//Enables smooth date turnover before midnight
+				dat_turn = 11.61290322580645 * ((hr_rotation - 630) / 90);
+				//Figures are day wheel angle (360/31), hour hand angle at 21:00 (21*30), 90 degrees from 21:00 to 0:00
+			}
+			else {
+				dat_turn = 0;
+			}
+			date.style.transform = `rotate(${dat_rotation + dat_turn}deg)`;
+		}
+		
+		if (day) {
+			if (hr < 3) {//Enables smooth day turnover after midnight
+				da_turn = -51.42857142857143 * ((90 - hr_rotation) / 90);
+				//Figures are day wheel angle (360/31), hour hand angle at 21:00 (21*30), 90 degrees from 21:00 to 0:00
+			}
+			else {
+				da_turn = 0;
+			}
+			day.style.transform = `rotate(${da_rotation - da_turn}deg)`;
 		}
 		
 		if (hour) {
-			hour.style.transform = `rotate(${(hr_rotation)+(min_rotation/12)+(sec_rotation/720)}deg)`;
+			//hour.style.transform = `rotate(${(hr_rotation)+(min_rotation/12)+(sec_rotation/720)}deg)`;
+			hour.style.transform = `rotate(${hr_rotation}deg)`;
 		}
 		
 		if (hourlume) {
-			hourlume.style.transform = `rotate(${(hr_rotation)+(min_rotation/12)+(sec_rotation/720)}deg)`;
+			hourlume.style.transform = `rotate(${hr_rotation}deg)`;
 		}
 		
 		if (minute) {
-			minute.style.transform = `rotate(${(min_rotation)+(sec_rotation/60)+(ms_rotation/166.666667)}deg)`;
+			//minute.style.transform = `rotate(${(min_rotation)+(sec_rotation/60)+(ms_rotation/166.666667)}deg)`;
+			minute.style.transform = `rotate(${min_rotation}deg)`;
 		}
 		
 		if (minutelume) {
-			minutelume.style.transform = `rotate(${(min_rotation)+(sec_rotation/60)+(ms_rotation/166.666667)}deg)`;
+			minutelume.style.transform = `rotate(${min_rotation}deg)`;
 		}
 		
 		if (second) {
-			second.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
+			//second.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
+			second.style.transform = `rotate(${sec_rotation}deg)`;
 		}
 		
 		if (secondlume) {
-			secondlume.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
+			secondlume.style.transform = `rotate(${sec_rotation}deg)`;
 		}
 
 		//Audio - Currently adds additional noise every time watch is swapped, and cannot autoplay on page load in Chrome
