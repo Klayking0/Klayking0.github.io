@@ -115,6 +115,19 @@ function watchSelect() {
 		bezelLume(watch);
 		analogueTime(100);//Beat rate goes in here
 	}
+	else if (watch == "nttd") {
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		bezel(watch, 120);//Number of clicks per rotation
+		bezelLume(watch);
+		analogueTime(142.8571428571429);//25,200vph (3.5Hz)
+	}
 	else if (watch == "westerland") {
 		face(watch);
 		faceLume(watch);
