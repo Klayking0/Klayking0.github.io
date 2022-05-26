@@ -74,34 +74,6 @@ function watchSelect() {
 		//vph from Hz: (Hz * 2) * 3600 (seconds in an hour) = vph
 		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
 	}
-	else if (watch == "marathonmod") {
-		date(watch);
-		face(watch);
-		faceLume(watch);
-		hour(watch);
-		hourLume(watch);
-		minute(watch);
-		minuteLume(watch);
-		second(watch);
-		secondLume(watch);
-		bezel(watch, 120);//Number of clicks per rotation
-		bezelLume(watch);
-		analogueTime(125);//Beat rate goes in here
-	}
-	else if (watch == "marathonmod2") {
-		date(watch);
-		face(watch);
-		faceLume(watch);
-		hour(watch);
-		hourLume(watch);
-		minute(watch);
-		minuteLume(watch);
-		second(watch);
-		secondLume(watch);
-		bezel(watch, 120);//Number of clicks per rotation
-		bezelLume(watch);
-		analogueTime(125);//Beat rate goes in here
-	}
 	else if (watch == "submariner") {
 		face(watch);
 		faceLume(watch);
@@ -150,7 +122,7 @@ function watchSelect() {
 		secondLume(watch);
 		analogueTime(125);//Beat rate goes in here
 	}
-	else if (watch == "fliegerb") {
+	else if (watch == "khaki") {
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -159,7 +131,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		analogueTime(125);//Beat rate goes in here
+		analogueTime(166.66667);//Beat rate goes in here
 	}
 	else if (watch == "seiko5") {
 		date(watch);
@@ -182,6 +154,13 @@ function watchSelect() {
 		second(watch);
 		analogueTime(166.66667);//Beat rate goes in here
 	}
+	else if (watch == "grandseiko") {
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);//marginTop, marginRight, marginBottom, marginLeft: Offsets the hand. Must include all 4 numbers or none.
+		analogueTime(10);//Beat rate goes in here
+	}
 	else if (watch == "fairfield") {
 		face(watch);
 		faceLume(watch);
@@ -190,30 +169,12 @@ function watchSelect() {
 		second(watch);
 		analogueTime(1000);//Beat rate goes in here
 	}
-	else if (watch == "grandseiko") {
+	else if (watch == "skagen") {
 		face(watch);
 		hour(watch);
 		minute(watch);
-		second(watch);//marginTop, marginRight, marginBottom, marginLeft: Offsets the hand. Must include all 4 numbers or none.
-		analogueTime(10);//Beat rate goes in here
-	}
-	else if (watch == "khaki") {
-		face(watch);
-		faceLume(watch);
-		hour(watch);
-		hourLume(watch);
-		minute(watch);
-		minuteLume(watch);
 		second(watch);
-		secondLume(watch);
-		analogueTime(166.66667);//Beat rate goes in here
-	}
-	else if (watch == "seagull") {
-		face(watch);
-		hour(watch);
-		minute(watch);
-		second(watch, 0, 16, 0, 0); //This offset is very experimental and not working consistently
-		analogueTime(166.66667);//Beat rate goes in here
+		analogueTime(1000);//Beat rate goes in here
 	}
 	else if (watch == "mig") {
 		face(watch);
@@ -225,6 +186,52 @@ function watchSelect() {
 		second(watch);
 		secondLume(watch);
 		analogueTime(250);
+	}
+	else if (watch == "fliegerb") {
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(125);//Beat rate goes in here
+	}
+	else if (watch == "marathonmod") {
+		date(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		bezel(watch, 120);//Number of clicks per rotation
+		bezelLume(watch);
+		analogueTime(125);//Beat rate goes in here
+	}
+	else if (watch == "marathonmod2") {
+		date(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		bezel(watch, 120);//Number of clicks per rotation
+		bezelLume(watch);
+		analogueTime(125);//Beat rate goes in here
+	}
+	else if (watch == "seagull") {
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch, 0, 16, 0, 0); //This offset is very experimental and not working consistently
+		analogueTime(166.66667);//Beat rate goes in here
 	}
 };
 
