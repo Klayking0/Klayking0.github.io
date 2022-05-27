@@ -244,12 +244,14 @@ function watchSelect() {
 	}
 	else if (watch == "seagull") {
 		watchcontainer(watch);
+		chronoPusherStart(watch, 0, 0, 50, 90); //Offset percentage: top, right, bottom, left
+		chronoPusherReset(watch, 45, 0, 0, 90); //Offset percentage: top, right, bottom, left
 		face(watch);
 		hour(watch);
 		minute(watch);
 		second(watch, 0, 38, 1, 0); //Offset percentage: top, right, bottom, left
-		chronoMinute(watch, 0, -38, 1, 0)
-		chronoSecond(watch)
+		chronoMinute(watch, 0, -38, 1, 0);
+		chronoSecond(watch);
 		analogueTime(166.66667);//Beat rate goes in here
 	}
 };
@@ -368,7 +370,16 @@ function chronoSecond(watch) {
 	var div = document.createElement("div");
 	div.id = "chronosecond";
 	div.className = "watch brightness";
-	div.innerHTML = "<img src='img/"+watch+"/chronosecond.png' id='minuteImg' class='imgDisplay'>";
+	div.innerHTML = "<img src='img/"+watch+"/chronosecond.png' id='chronosecondImg' class='imgDisplay'>";
+    container.appendChild(div);
+};
+
+function chronoSecondLume(watch) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronosecondlume";
+	div.className = "watch lume";
+	div.innerHTML = "<img src='img/"+watch+"/chronosecondlume.png' id='chronosecondlumeImg' class='imgDisplay'>";
     container.appendChild(div);
 };
 
@@ -382,6 +393,84 @@ function chronoMinute(watch, marginTop, marginRight, marginBottom, marginLeft) {
 		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
 	}
     container.appendChild(div);
+};
+
+function chronoMinuteLume(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronominutelume";
+	div.className = "watch lume";
+	div.innerHTML = "<img src='img/"+watch+"/chronominutelume.png' id='chronominutelumeImg' class='imgDisplay'>";
+	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+    container.appendChild(div);
+};
+
+function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	var container = document.getElementById("watchcontainer");
+	//Creates the visual element
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronopusherstart";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/chronopusherstart.png' id='chronopusherstartImg' class='imgDisplay'>";
+	//Creates the clickable element
+	var div2 = document.createElement("div");
+	div2.id = "chronopusherstartclickzone";
+	div2.className = "clickzone";
+	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div2.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+	container.appendChild(div);
+    container.appendChild(div2);
+	
+	//Animating the pusher on click
+	div2.addEventListener("mousedown", startButtonDown);
+	div2.addEventListener("touchstart", startButtonDown);
+	div2.addEventListener("mouseup", startButtonUp);
+	div2.addEventListener("mouseleave", startButtonUp);
+	div2.addEventListener("touchend", startButtonUp);
+	div2.addEventListener("touchcancel", startButtonUp);
+	function startButtonDown() {
+		div.style.margin = "2% 3% 0 0";//top, right, bottom, left
+	};
+	function startButtonUp() {
+		div.style.margin = "0 0 0 0";
+	};
+};
+
+function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	var container = document.getElementById("watchcontainer");
+	//Creates the visual element
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronopushereset";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/chronopusherreset.png' id='chronopusherresetImg' class='imgDisplay'>";
+	//Creates the clickable element
+	var div2 = document.createElement("div");
+	div2.id = "chronopusherresetclickzone";
+	div2.className = "clickzone";
+	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div2.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+	container.appendChild(div);
+    container.appendChild(div2);
+	
+	//Animating the pusher on click
+	div2.addEventListener("mousedown", startButtonDown);
+	div2.addEventListener("touchstart", startButtonDown);
+	div2.addEventListener("mouseup", startButtonUp);
+	div2.addEventListener("mouseleave", startButtonUp);
+	div2.addEventListener("touchend", startButtonUp);
+	div2.addEventListener("touchcancel", startButtonUp);
+	function startButtonDown() {
+		div.style.margin = "0 3% 2% 0";//top, right, bottom, left
+	};
+	function startButtonUp() {
+		div.style.margin = "0 0 0 0";
+	};
 };
 
 function bezel(watch, clicks) {

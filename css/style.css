@@ -7,6 +7,7 @@
 body {
 	/*background: transparent;*/
 	margin: 0;
+    user-select: none;
 }
 
 p1 {
@@ -87,6 +88,17 @@ img {
 
 .lume {
 	opacity: var(--lume);
+}
+
+.clickzone {
+	display: flex;
+    position: absolute;
+    width: 20%;
+	padding-top: 20%;/*match with the width to make a square that works at any screen size*/
+	align-items: center;
+    justify-content: center;
+	/*background-color: rgba(0, 255, 0, 0.5);*/
+	z-index: 100;
 }
 
 input[type=range]{
