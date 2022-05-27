@@ -355,6 +355,7 @@ function bezel(watch, clicks) {
 	
 	document.getElementById("container").addEventListener("mousewheel", rotateBezel);
 	document.getElementById("container").addEventListener("touchmove", rotateBezelTouch);//For mobile devices
+	document.getElementById("container").addEventListener("touchend", rotateBezelTouchStop);
 	//document.getElementById("container").addEventListener("touchstart", rotateBezel);
 	
 	function rotateBezel() {
@@ -388,6 +389,9 @@ function bezel(watch, clicks) {
 				}
 			touchmoveDelay = 0;
 		};
+	};
+	function rotateBezelTouchStop() {
+		touchmoveDelay = 0;
 	};
 };
 
