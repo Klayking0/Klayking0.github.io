@@ -248,6 +248,8 @@ function watchSelect() {
 		hour(watch);
 		minute(watch);
 		second(watch, 0, 38, 1, 0); //Offset percentage: top, right, bottom, left
+		chronoMinute(watch, 0, -38, 1, 0)
+		chronoSecond(watch)
 		analogueTime(166.66667);//Beat rate goes in here
 	}
 };
@@ -359,6 +361,27 @@ function secondLume(watch, marginTop, marginRight, marginBottom, marginLeft) {
 		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
 	}
 	container.appendChild(div);
+};
+
+function chronoSecond(watch) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronosecond";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/chronosecond.png' id='minuteImg' class='imgDisplay'>";
+    container.appendChild(div);
+};
+
+function chronoMinute(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronominute";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/chronominute.png' id='minuteImg' class='imgDisplay'>";
+	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+    container.appendChild(div);
 };
 
 function bezel(watch, clicks) {
