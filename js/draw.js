@@ -430,11 +430,11 @@ function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLe
 	
 	//Animating the pusher on click
 	div2.addEventListener("mousedown", ButtonDown);
-	div2.addEventListener("touchstart", ButtonDown);
+	//div2.addEventListener("touchstart", ButtonDown);
 	div2.addEventListener("mouseup", ButtonUp);
 	div2.addEventListener("mouseleave", ButtonUp);
-	div2.addEventListener("touchend", ButtonUp);
-	div2.addEventListener("touchcancel", ButtonUp);
+	//div2.addEventListener("touchend", ButtonUp);
+	//div2.addEventListener("touchcancel", ButtonUp);
 	function ButtonDown() {
 		div.style.margin = "2% 3% 0 0";//top, right, bottom, left
 		chronoPlay = !chronoPlay;
@@ -465,11 +465,11 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
 	
 	//Animating the pusher on click
 	div2.addEventListener("mousedown", ButtonDown);
-	div2.addEventListener("touchstart", ButtonDown);
+	//div2.addEventListener("touchstart", ButtonDown);
 	div2.addEventListener("mouseup", ButtonUp);
 	div2.addEventListener("mouseleave", ButtonUp);
-	div2.addEventListener("touchend", ButtonUp);
-	div2.addEventListener("touchcancel", ButtonUp);
+	//div2.addEventListener("touchend", ButtonUp);
+	//div2.addEventListener("touchcancel", ButtonUp);
 	function ButtonDown() {
 		div.style.margin = "0 3% 2% 0";//top, right, bottom, left
 		chronoReset = 1;
