@@ -1,5 +1,8 @@
-//Disable right click
+//Disable right click (or tap+hold) menu
 document.addEventListener('contextmenu', event => event.preventDefault());
+
+//Detect touch devices
+var isTouchDevice = 'ontouchstart' in document.documentElement;
 
 //Brightness slider
 document.getElementById("slider").oninput = function() {
@@ -432,12 +435,17 @@ function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLe
     container.appendChild(div2);
 	
 	//Animating the pusher on click
-	div2.addEventListener("mousedown", ButtonDown);
-	div2.addEventListener("touchstart", ButtonDown);
-	div2.addEventListener("mouseup", ButtonUp);
-	div2.addEventListener("mouseleave", ButtonUp);
-	div2.addEventListener("touchend", ButtonUp);
-	div2.addEventListener("touchcancel", ButtonUp);
+	if (isTouchDevice) {
+		div2.addEventListener("touchstart", ButtonDown);
+		div2.addEventListener("touchend", ButtonUp);
+		div2.addEventListener("touchcancel", ButtonUp);
+	}
+	else {
+		div2.addEventListener("mousedown", ButtonDown);
+		div2.addEventListener("mouseup", ButtonUp);
+		div2.addEventListener("mouseleave", ButtonUp);
+	}
+	
 	function ButtonDown() {
 		div.style.margin = "2% 3% 0 0";//top, right, bottom, left
 		chronoPlay = !chronoPlay;
@@ -467,19 +475,24 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
     container.appendChild(div2);
 	
 	//Animating the pusher on click
-	div2.addEventListener("mousedown", ButtonDown);
-	div2.addEventListener("touchstart", ButtonDown);
-	div2.addEventListener("mouseup", ButtonUp);
-	div2.addEventListener("mouseleave", ButtonUp);
-	div2.addEventListener("touchend", ButtonUp);
-	div2.addEventListener("touchcancel", ButtonUp);
+	if (isTouchDevice) {
+		div2.addEventListener("touchstart", ButtonDown);
+		div2.addEventListener("touchend", ButtonUp);
+		div2.addEventListener("touchcancel", ButtonUp);
+	}
+	else {
+		div2.addEventListener("mousedown", ButtonDown);
+		div2.addEventListener("mouseup", ButtonUp);
+		div2.addEventListener("mouseleave", ButtonUp);
+	}
+	
 	function ButtonDown() {
 		div.style.margin = "0 3% 2% 0";//top, right, bottom, left
 		chronoReset = 1;
 	};
 	function ButtonUp() {
 		div.style.margin = "0 0 0 0";
-		chronoReset = 0;
+		//chronoReset =  0 is set in the time code at the bottom, to prevent a quick button release missing the interval
 	};
 };
 
@@ -643,16 +656,12 @@ function analogueTime(beat, dateStart, dayEnd) {
 		
 		if (chronoReset) {
 			chronoAng = 0;
+			chronoReset = 0;
 			if (chronosecond) {
 				chronosecond.style.transform = `rotate(${0}deg)`;
 				chronominute.style.transform = `rotate(${0}deg)`;
 			}
 		}
-		
-		//Chrono seconds
-		//document.getElementById("chronopusherstartclickzone").addEventListener("mousedown", playChrono);
-		
-		//variable is chronoPlay
 
 		//Audio - Currently adds additional noise every time watch is swapped, and cannot autoplay on page load in Chrome
 		//let tick = new Audio('tick.mp3');
