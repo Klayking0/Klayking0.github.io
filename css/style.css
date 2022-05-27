@@ -19,6 +19,7 @@ p1 {
 img {
 	max-width: 100vw;
 	max-height: 100vh;
+	/* border: blue 2px dotted; */
 }
 
 .menu {
@@ -48,6 +49,23 @@ img {
     justify-content: center;
 	width: 100vw;
 	height: 100vh;
+	/* border: red 2px dotted; */
+}
+
+.watchcontainer {
+	display: inline-flex;
+    position: absolute;
+	height: auto;
+    width: auto;
+	align-items: center;
+    justify-content: center;
+	/* border: red 2px dotted; */
+	/* background: rgba(255,0,0,0.2); */
+}
+
+.watchface {
+	display: flex;
+    position: relative;
 }
 
 .watch {
@@ -55,8 +73,12 @@ img {
     position: absolute;
 	height: 0;
     width: 0;
+	/*height: 20%;
+    width: 20%;*/
 	align-items: center;
     justify-content: center;
+	/* border: green 2px dotted; */
+	/*margin: 0 38% 3% 0; /*top, right, bottom, left*/
 }
 
 .brightness {

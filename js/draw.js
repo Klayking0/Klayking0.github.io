@@ -56,6 +56,7 @@ function watchSelect() {
 	
 	//Spawn the components required to make the selected watch
 	if (watch == "marathon") {
+		watchcontainer(watch);
 		date(watch);
 		face(watch);
 		faceLume(watch);
@@ -75,6 +76,7 @@ function watchSelect() {
 		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
 	}
 	else if (watch == "submariner") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -88,6 +90,7 @@ function watchSelect() {
 		analogueTime(100);//Beat rate goes in here
 	}
 	else if (watch == "nttd") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -101,6 +104,7 @@ function watchSelect() {
 		analogueTime(142.8571428571429);//25,200vph (3.5Hz)
 	}
 	else if (watch == "westerland") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -112,6 +116,7 @@ function watchSelect() {
 		analogueTime(125);//Beat rate goes in here
 	}
 	else if (watch == "dortmund") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -123,6 +128,7 @@ function watchSelect() {
 		analogueTime(125);//Beat rate goes in here
 	}
 	else if (watch == "khaki") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -134,6 +140,7 @@ function watchSelect() {
 		analogueTime(166.66667);//Beat rate goes in here
 	}
 	else if (watch == "seiko5") {
+		watchcontainer(watch);
 		date(watch);
 		day(watch);
 		face(watch);
@@ -148,6 +155,7 @@ function watchSelect() {
 		//Do not define the dateStart / dayEnd values if you wish for instant day and/or date wheel changes
 	}
 	else if (watch == "cocktail") {
+		watchcontainer(watch);
 		date(watch);
 		face(watch);
 		hour(watch);
@@ -156,6 +164,7 @@ function watchSelect() {
 		analogueTime(166.66667, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
 	else if (watch == "grandseiko") {
+		watchcontainer(watch);
 		face(watch);
 		hour(watch);
 		minute(watch);
@@ -163,6 +172,7 @@ function watchSelect() {
 		analogueTime(10);//Beat rate goes in here
 	}
 	else if (watch == "fairfield") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -171,6 +181,7 @@ function watchSelect() {
 		analogueTime(1000);//Beat rate goes in here
 	}
 	else if (watch == "skagen") {
+		watchcontainer(watch);
 		face(watch);
 		hour(watch);
 		minute(watch);
@@ -178,6 +189,7 @@ function watchSelect() {
 		analogueTime(1000);//Beat rate goes in here
 	}
 	else if (watch == "mig") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -189,6 +201,7 @@ function watchSelect() {
 		analogueTime(250);
 	}
 	else if (watch == "fliegerb") {
+		watchcontainer(watch);
 		face(watch);
 		faceLume(watch);
 		hour(watch);
@@ -200,6 +213,7 @@ function watchSelect() {
 		analogueTime(125);//Beat rate goes in here
 	}
 	else if (watch == "marathonmod") {
+		watchcontainer(watch);
 		date(watch);
 		face(watch);
 		faceLume(watch);
@@ -214,6 +228,7 @@ function watchSelect() {
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
 	else if (watch == "marathonmod2") {
+		watchcontainer(watch);
 		date(watch);
 		face(watch);
 		faceLume(watch);
@@ -228,10 +243,11 @@ function watchSelect() {
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
 	else if (watch == "seagull") {
+		watchcontainer(watch);
 		face(watch);
 		hour(watch);
 		minute(watch);
-		second(watch, 0, 16, 0, 0); //This offset is very experimental and not working consistently
+		second(watch, 0, 38, 1, 0); //Offset percentage: top, right, bottom, left
 		analogueTime(166.66667);//Beat rate goes in here
 	}
 };
@@ -242,8 +258,15 @@ function clearContainer() {
 }
 
 //Functions to create each component of the watch
-function date(watch) {
+function watchcontainer(watch) {
 	var container = document.getElementById("container");
+	var div = document.createElement("div");
+	div.id = "watchcontainer";
+	div.className = "watchcontainer";
+    container.appendChild(div);
+};
+function date(watch) {
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "date";
 	div.className = "watch brightness";
@@ -252,7 +275,7 @@ function date(watch) {
 };
 
 function day(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "day";
 	div.className = "watch brightness";
@@ -261,16 +284,16 @@ function day(watch) {
 };
 
 function face(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "face";
-	div.className = "watch brightness";
+	div.className = "watchface brightness";
 	div.innerHTML = "<img src='img/"+watch+"/face.png' id='faceImg' class='imgDisplay'>";
     container.appendChild(div);
 };
 
 function faceLume(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "facelume";
 	div.className = "watch lume";
@@ -279,7 +302,7 @@ function faceLume(watch) {
 };
 
 function hour(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "hour";
 	div.className = "watch brightness";
@@ -288,7 +311,7 @@ function hour(watch) {
 };
 
 function hourLume(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "hourlume";
 	div.className = "watch lume";
@@ -297,7 +320,7 @@ function hourLume(watch) {
 };
 
 function minute(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "minute";
 	div.className = "watch brightness";
@@ -306,7 +329,7 @@ function minute(watch) {
 };
 
 function minuteLume(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "minutelume";
 	div.className = "watch lume";
@@ -315,35 +338,31 @@ function minuteLume(watch) {
 };
 
 function second(watch, marginTop, marginRight, marginBottom, marginLeft) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "second";
 	div.className = "watch brightness";
 	div.innerHTML = "<img src='img/"+watch+"/second.png' id='secondImg' class='imgDisplay'>";
-    if (marginTop || marginRight || marginBottom || marginLeft) {
-		//This offset is very experimental and not working consistently
-		div.setAttribute("style", "margin: "+marginTop+"vh "+marginRight+"vw "+marginBottom+"vh "+marginLeft+"vw");
-		//div.setAttribute("style", "left: 45vw");
-	
+    if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
 	}
 	container.appendChild(div);
 };
 
 function secondLume(watch, marginTop, marginRight, marginBottom, marginLeft) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "secondlume";
 	div.className = "watch lume";
 	div.innerHTML = "<img src='img/"+watch+"/secondlume.png' id='secondlumeImg' class='imgDisplay'>";
-    if (marginTop || marginRight || marginBottom || marginLeft) {
-		//This offset is very experimental and not working consistently
-		div.setAttribute("style", "margin: "+marginTop+"vh "+marginRight+"vw "+marginBottom+"vh "+marginLeft+"vw");
+    if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
 	}
 	container.appendChild(div);
 };
 
 function bezel(watch, clicks) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "bezel";
 	div.className = "watch brightness";
@@ -396,7 +415,7 @@ function bezel(watch, clicks) {
 };
 
 function bezelLume(watch) {
-	var container = document.getElementById("container");
+	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "bezellume";
 	div.className = "watch lume";
