@@ -351,10 +351,11 @@ function bezel(watch, clicks) {
     container.appendChild(div);
 	//Bezel rotation
 	var bezelRotation = 0;
+	var touchmoveDelay = 0;
 	
 	document.getElementById("container").addEventListener("mousewheel", rotateBezel);
-	document.getElementById("container").addEventListener("touchmove", rotateBezel);//For mobile devices
-	document.getElementById("container").addEventListener("touchstart", rotateBezel);
+	document.getElementById("container").addEventListener("touchmove", rotateBezelTouch);//For mobile devices
+	//document.getElementById("container").addEventListener("touchstart", rotateBezel);
 	
 	function rotateBezel() {
 		if (bezelRotation < 360) {
@@ -369,6 +370,24 @@ function bezel(watch, clicks) {
 			if(document.body.contains(document.getElementById('bezellume'))) {
 				document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
 			}
+	};
+	function rotateBezelTouch() {//The mobile version
+		touchmoveDelay++;
+		if (touchmoveDelay = 10) {
+			if (bezelRotation < 360) {
+					bezelRotation-=(360/clicks);
+				}
+				else if (bezelRotation > 360) {
+					bezelRotation = 0;
+				}
+				if(document.body.contains(document.getElementById('bezel'))) {
+					document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
+				}
+				if(document.body.contains(document.getElementById('bezellume'))) {
+					document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
+				}
+			touchmoveDelay = 0;
+		};
 	};
 };
 
@@ -470,8 +489,3 @@ function analogueTime(beat, dateStart, dayEnd) {
 };
 
 //https://www.freecodecamp.org/news/svg-javascript-tutorial/?msclkid=1949c10dd06e11ec9ebeb9f4e5aea11c
-
-//experimental drag dive bezel
-//let drag = false;
-//document.addEventListener(
-//        'mousemove', () => drag = true);
