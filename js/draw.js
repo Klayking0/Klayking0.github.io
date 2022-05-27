@@ -407,6 +407,9 @@ function chronoMinuteLume(watch, marginTop, marginRight, marginBottom, marginLef
     container.appendChild(div);
 };
 
+var chronoPlay = 0;//Global variables to be passed into the timekeeping function
+var chronoReset = 0;
+
 function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLeft) {
 	var container = document.getElementById("watchcontainer");
 	//Creates the visual element
@@ -426,16 +429,18 @@ function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLe
     container.appendChild(div2);
 	
 	//Animating the pusher on click
-	div2.addEventListener("mousedown", startButtonDown);
-	div2.addEventListener("touchstart", startButtonDown);
-	div2.addEventListener("mouseup", startButtonUp);
-	div2.addEventListener("mouseleave", startButtonUp);
-	div2.addEventListener("touchend", startButtonUp);
-	div2.addEventListener("touchcancel", startButtonUp);
-	function startButtonDown() {
+	div2.addEventListener("mousedown", ButtonDown);
+	div2.addEventListener("touchstart", ButtonDown);
+	div2.addEventListener("mouseup", ButtonUp);
+	div2.addEventListener("mouseleave", ButtonUp);
+	div2.addEventListener("touchend", ButtonUp);
+	div2.addEventListener("touchcancel", ButtonUp);
+	function ButtonDown() {
 		div.style.margin = "2% 3% 0 0";//top, right, bottom, left
+		chronoPlay = !chronoPlay;
+		//console.log(chronoPlay);
 	};
-	function startButtonUp() {
+	function ButtonUp() {
 		div.style.margin = "0 0 0 0";
 	};
 };
@@ -459,17 +464,19 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
     container.appendChild(div2);
 	
 	//Animating the pusher on click
-	div2.addEventListener("mousedown", startButtonDown);
-	div2.addEventListener("touchstart", startButtonDown);
-	div2.addEventListener("mouseup", startButtonUp);
-	div2.addEventListener("mouseleave", startButtonUp);
-	div2.addEventListener("touchend", startButtonUp);
-	div2.addEventListener("touchcancel", startButtonUp);
-	function startButtonDown() {
+	div2.addEventListener("mousedown", ButtonDown);
+	div2.addEventListener("touchstart", ButtonDown);
+	div2.addEventListener("mouseup", ButtonUp);
+	div2.addEventListener("mouseleave", ButtonUp);
+	div2.addEventListener("touchend", ButtonUp);
+	div2.addEventListener("touchcancel", ButtonUp);
+	function ButtonDown() {
 		div.style.margin = "0 3% 2% 0";//top, right, bottom, left
+		chronoReset = 1;
 	};
-	function startButtonUp() {
+	function ButtonUp() {
 		div.style.margin = "0 0 0 0";
+		chronoReset = 0;
 	};
 };
 
@@ -487,7 +494,9 @@ function bezel(watch, clicks) {
 	document.getElementById("container").addEventListener("mousewheel", rotateBezel);
 	document.getElementById("container").addEventListener("touchmove", rotateBezelTouch);//For mobile devices
 	document.getElementById("container").addEventListener("touchend", rotateBezelTouchStop);
-	//document.getElementById("container").addEventListener("touchstart", rotateBezel);
+	
+	//How to detect mouse wheel direction:
+	//https://deepmikoto.com/coding/1--javascript-detect-mouse-wheel-direction
 	
 	function rotateBezel() {
 		if (bezelRotation < 360) {
@@ -540,16 +549,21 @@ var interval;
 
 //Function to display the time & date
 function analogueTime(beat, dateStart, dayEnd) {
+	
+	var chronoAng = 0;
+	//Finds any divs that can be rotated
+	var date = document.getElementById("date");
+	var day = document.getElementById("day");
+	var hour = document.getElementById("hour");
+	var hourlume = document.getElementById("hourlume");
+	var minute = document.getElementById("minute");
+	var minutelume = document.getElementById("minutelume");
+	var second = document.getElementById("second");
+	var secondlume = document.getElementById("secondlume");
+	var chronosecond = document.getElementById("chronosecond");
+	var chronominute = document.getElementById("chronominute");
+	
 	interval = setInterval(() => {
-		//Finds any divs that can be rotated
-		var date = document.getElementById("date");
-		var day = document.getElementById("day");
-		var hour = document.getElementById("hour");
-		var hourlume = document.getElementById("hourlume");
-		var minute = document.getElementById("minute");
-		var minutelume = document.getElementById("minutelume");
-		var second = document.getElementById("second");
-		var secondlume = document.getElementById("secondlume");
 		
 		//Gets the date
 		d = new Date(); //object of date()
@@ -614,6 +628,28 @@ function analogueTime(beat, dateStart, dayEnd) {
 		if (secondlume) {
 			secondlume.style.transform = `rotate(${sec_rotation}deg)`;
 		}
+		
+		if (chronoPlay) {
+			chronoAng+=(beat/166.6667);
+			//console.log(chronoAng);
+			if (chronosecond) {
+				chronosecond.style.transform = `rotate(${chronoAng * chronoPlay}deg)`;
+				chronominute.style.transform = `rotate(${12*Math.floor((chronoAng/30)/12)}deg)`;
+			}
+		}
+		
+		if (chronoReset) {
+			chronoAng = 0;
+			if (chronosecond) {
+				chronosecond.style.transform = `rotate(${0}deg)`;
+				chronominute.style.transform = `rotate(${0}deg)`;
+			}
+		}
+		
+		//Chrono seconds
+		//document.getElementById("chronopusherstartclickzone").addEventListener("mousedown", playChrono);
+		
+		//variable is chronoPlay
 
 		//Audio - Currently adds additional noise every time watch is swapped, and cannot autoplay on page load in Chrome
 		//let tick = new Audio('tick.mp3');
