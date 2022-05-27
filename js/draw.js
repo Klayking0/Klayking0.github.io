@@ -373,7 +373,7 @@ function bezel(watch, clicks) {
 	};
 	function rotateBezelTouch() {//The mobile version
 		touchmoveDelay++;
-		if (touchmoveDelay >= 10) {
+		if (touchmoveDelay >= 5) {
 			if (bezelRotation < 360) {
 					bezelRotation-=(360/clicks);
 				}
