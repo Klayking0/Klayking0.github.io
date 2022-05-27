@@ -357,7 +357,7 @@ function bezel(watch, clicks) {
 	
 	function rotateBezel() {
 		if (bezelRotation < 360) {
-				bezelRotation-=(360/clicks);
+				bezelRotation-=(360/360);
 			}
 			else if (bezelRotation > 360) {
 				bezelRotation = 0;
