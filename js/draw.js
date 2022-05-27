@@ -1,3 +1,6 @@
+//Disable right click
+document.addEventListener('contextmenu', event => event.preventDefault());
+
 //Brightness slider
 document.getElementById("slider").oninput = function() {
 	document.body.style.backgroundColor =  'hsl(0, 0%, '+this.value+'%)';
@@ -429,10 +432,10 @@ function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLe
     container.appendChild(div2);
 	
 	//Animating the pusher on click
-	//div2.addEventListener("mousedown", ButtonDown);
+	div2.addEventListener("mousedown", ButtonDown);
 	div2.addEventListener("touchstart", ButtonDown);
-	//div2.addEventListener("mouseup", ButtonUp);
-	//div2.addEventListener("mouseleave", ButtonUp);
+	div2.addEventListener("mouseup", ButtonUp);
+	div2.addEventListener("mouseleave", ButtonUp);
 	div2.addEventListener("touchend", ButtonUp);
 	div2.addEventListener("touchcancel", ButtonUp);
 	function ButtonDown() {
@@ -464,10 +467,10 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
     container.appendChild(div2);
 	
 	//Animating the pusher on click
-	//div2.addEventListener("mousedown", ButtonDown);
+	div2.addEventListener("mousedown", ButtonDown);
 	div2.addEventListener("touchstart", ButtonDown);
-	//div2.addEventListener("mouseup", ButtonUp);
-	//div2.addEventListener("mouseleave", ButtonUp);
+	div2.addEventListener("mouseup", ButtonUp);
+	div2.addEventListener("mouseleave", ButtonUp);
 	div2.addEventListener("touchend", ButtonUp);
 	div2.addEventListener("touchcancel", ButtonUp);
 	function ButtonDown() {
