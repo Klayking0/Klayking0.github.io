@@ -67,7 +67,7 @@ function watchSelect() {
 		secondLume(watch);
 		bezel(watch, 120);//Number of clicks per rotation
 		bezelLume(watch);
-		analogueTime(125);//Beat rate goes in here
+		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
 		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
 		//5Hz = 36000vph:  1000ms (1 sec) / 10 (degrees each tick (28800/60)/60=8) = analogueTime(100)
@@ -144,7 +144,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		analogueTime(166.66667, 22, 1);//Beat rate, hour date starts changing, hour day ends changing
+		analogueTime(166.66667, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 		//Do not define the dateStart / dayEnd values if you wish for instant day and/or date wheel changes
 	}
 	else if (watch == "cocktail") {
@@ -153,7 +153,7 @@ function watchSelect() {
 		hour(watch);
 		minute(watch);
 		second(watch);
-		analogueTime(166.66667);//Beat rate goes in here
+		analogueTime(166.66667, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
 	else if (watch == "grandseiko") {
 		face(watch);
@@ -211,7 +211,7 @@ function watchSelect() {
 		secondLume(watch);
 		bezel(watch, 120);//Number of clicks per rotation
 		bezelLume(watch);
-		analogueTime(125);//Beat rate goes in here
+		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
 	else if (watch == "marathonmod2") {
 		date(watch);
@@ -225,7 +225,7 @@ function watchSelect() {
 		secondLume(watch);
 		bezel(watch, 120);//Number of clicks per rotation
 		bezelLume(watch);
-		analogueTime(125);//Beat rate goes in here
+		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
 	else if (watch == "seagull") {
 		face(watch);
@@ -352,38 +352,12 @@ function bezel(watch, clicks) {
 	//Bezel rotation
 	var bezelRotation = 0;
 	
-	document.addEventListener("mousewheel", rotateBezel);
-	document.addEventListener("touchmove", rotateBezel);
+	document.getElementById("container").addEventListener("mousewheel", rotateBezel);
+	document.getElementById("container").addEventListener("touchmove", rotateBezel);//For mobile devices
+	document.getElementById("container").addEventListener("touchstart", rotateBezel);
 	
 	function rotateBezel() {
 		if (bezelRotation < 360) {
-				bezelRotation-=(360/360);
-			}
-			else if (bezelRotation > 360) {
-				bezelRotation = 0;
-			}
-			if(document.body.contains(document.getElementById('bezel'))) {
-				document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
-			}
-			if(document.body.contains(document.getElementById('bezellume'))) {
-				document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
-			}
-	};
-	
-	
-//document.getElementById("dropdown").onload = watchSelect();
-//document.getElementById("dropdown").oninput = function() {
-//	watchSelect();
-//};This is just  me keeping these functions for reference
-	
-/* 	document.addEventListener('mousedown', mouseDown, false);
-	document.addEventListener('touchstart', mouseDown, false);
-	document.addEventListener('mouseup', mouseUp, false);
-	document.addEventListener('touchend', mouseUp, false);
-	
-	function mouseDown() {
-		bezInt = setInterval(() => {
-			if (bezelRotation < 360) {
 				bezelRotation-=(360/clicks);
 			}
 			else if (bezelRotation > 360) {
@@ -395,13 +369,7 @@ function bezel(watch, clicks) {
 			if(document.body.contains(document.getElementById('bezellume'))) {
 				document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
 			}
-		}, 100);
 	};
-	
-	function mouseUp() {
-		clearInterval(bezInt);
-	}; */
-	
 };
 
 function bezelLume(watch) {
