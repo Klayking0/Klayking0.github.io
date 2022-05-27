@@ -351,26 +351,57 @@ function bezel(watch, clicks) {
     container.appendChild(div);
 	//Bezel rotation
 	var bezelRotation = 0;
-	//document.addEventListener('mousedown', mouseDown, false);
-	//document.addEventListener('touchstart', mouseDown, false);
-	document.addEventListener('mousemove', mouseMove, false);
-	document.addEventListener('touchmove', mouseMove, false);
-	//document.addEventListener('mouseup', mouseUp, false);
-	//document.addEventListener('touchend', mouseUp, false);
-	function mouseMove() {
+	
+	document.addEventListener("mousewheel", rotateBezel);
+	document.addEventListener("touchmove", rotateBezel);
+	
+	function rotateBezel() {
 		if (bezelRotation < 360) {
-			bezelRotation-=(360/clicks);
-		}
-		else if (bezelRotation > 360) {
-			bezelRotation = 0;
-		}
-		if(document.body.contains(document.getElementById('bezel'))) {
-			document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
-		}
-		if(document.body.contains(document.getElementById('bezellume'))) {
-			document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
-		}
+				bezelRotation-=(360/clicks);
+			}
+			else if (bezelRotation > 360) {
+				bezelRotation = 0;
+			}
+			if(document.body.contains(document.getElementById('bezel'))) {
+				document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
+			}
+			if(document.body.contains(document.getElementById('bezellume'))) {
+				document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
+			}
 	};
+	
+	
+//document.getElementById("dropdown").onload = watchSelect();
+//document.getElementById("dropdown").oninput = function() {
+//	watchSelect();
+//};This is just  me keeping these functions for reference
+	
+/* 	document.addEventListener('mousedown', mouseDown, false);
+	document.addEventListener('touchstart', mouseDown, false);
+	document.addEventListener('mouseup', mouseUp, false);
+	document.addEventListener('touchend', mouseUp, false);
+	
+	function mouseDown() {
+		bezInt = setInterval(() => {
+			if (bezelRotation < 360) {
+				bezelRotation-=(360/clicks);
+			}
+			else if (bezelRotation > 360) {
+				bezelRotation = 0;
+			}
+			if(document.body.contains(document.getElementById('bezel'))) {
+				document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
+			}
+			if(document.body.contains(document.getElementById('bezellume'))) {
+				document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
+			}
+		}, 100);
+	};
+	
+	function mouseUp() {
+		clearInterval(bezInt);
+	}; */
+	
 };
 
 function bezelLume(watch) {
