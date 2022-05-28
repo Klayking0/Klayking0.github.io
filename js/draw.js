@@ -145,6 +145,18 @@ function watchSelect() {
 		secondLume(watch);
 		analogueTime(166.66667);//Beat rate goes in here
 	}
+	else if (watch == "seagull") {
+		watchcontainer(watch);
+		chronoPusherStart(watch, 0, 0, 50, 90); //Offset percentage: top, right, bottom, left
+		chronoPusherReset(watch, 45, 0, 0, 90); //Offset percentage: top, right, bottom, left
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch, 0, 38, 1, 0); //Offset percentage: top, right, bottom, left
+		chronoMinute(watch, 0, -38, 1, 0);//Offset percentage: top, right, bottom, left
+		chronoSecond(watch);
+		analogueTime(166.66667);//Beat rate goes in here
+	}
 	else if (watch == "seiko5") {
 		watchcontainer(watch);
 		date(watch);
@@ -244,21 +256,9 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 120);//Number of clicks per rotation
+		bezel(watch, 60);//Number of clicks per rotation
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
-	}
-	else if (watch == "seagull") {
-		watchcontainer(watch);
-		chronoPusherStart(watch, 0, 0, 50, 90); //Offset percentage: top, right, bottom, left
-		chronoPusherReset(watch, 45, 0, 0, 90); //Offset percentage: top, right, bottom, left
-		face(watch);
-		hour(watch);
-		minute(watch);
-		second(watch, 0, 38, 1, 0); //Offset percentage: top, right, bottom, left
-		chronoMinute(watch, 0, -38, 1, 0);
-		chronoSecond(watch);
-		analogueTime(166.66667);//Beat rate goes in here
 	}
 };
 
