@@ -61,7 +61,33 @@ function watchSelect() {
 	var watch = document.getElementById("dropdown").value;
 	
 	//Spawn the components required to make the selected watch
-	if (watch == "marathon") {
+	if (watch == "sinn103") {
+		watchcontainer(watch);
+		chronoPusherStart(watch, 0, 0, 50, 85); //Offset percentage: top, right, bottom, left
+		chronoPusherReset(watch, 45, 0, 0, 85); //Offset percentage: top, right, bottom, left
+		date(watch);
+		day(watch);
+		face(watch);
+		faceLume(watch);
+		second(watch, 0, 34, 0, 0); //Offset percentage: top, right, bottom, left
+		chronoMinute(watch, 0, 0, 32.5, 0);//Offset percentage: top, right, bottom, left
+		chronoHour(watch, 0, 0, -32.5, 0);//Offset percentage: top, right, bottom, left
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		chronoSecond(watch);
+		chronoSecondLume(watch);
+		bezel(watch, 1, 120, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezelLume(watch);
+		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
+		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
+		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
+		//5Hz = 36000vph:  1000ms (1 sec) / 10 (degrees each tick (28800/60)/60=8) = analogueTime(100)
+		//vph from Hz: (Hz * 2) * 3600 (seconds in an hour) = vph
+		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
+	}
+	else if (watch == "marathon") {
 		watchcontainer(watch);
 		date(watch);
 		face(watch);
@@ -72,14 +98,9 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 120);//Number of clicks per rotation
+		bezel(watch, 0, 120,80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
-		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
-		//4Hz = 28800vph:  1000ms (1 sec) / 8 (degrees each tick (28800/60)/60=8) = analogueTime(125)
-		//5Hz = 36000vph:  1000ms (1 sec) / 10 (degrees each tick (28800/60)/60=8) = analogueTime(100)
-		//vph from Hz: (Hz * 2) * 3600 (seconds in an hour) = vph
-		//analogueTime() from vph: 1000 (ms in 1 sec) / ((vph / 60) / 60) = analogueTime()
 	}
 	else if (watch == "submariner") {
 		watchcontainer(watch);
@@ -91,7 +112,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 120);//Number of clicks per rotation
+		bezel(watch, 0, 120, 75);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(100);//Beat rate goes in here
 	}
@@ -105,7 +126,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 120);//Number of clicks per rotation
+		bezel(watch, 0, 120, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(142.8571428571429);//25,200vph (3.5Hz)
 	}
@@ -241,7 +262,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 120);//Number of clicks per rotation
+		bezel(watch, 0, 120, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
@@ -256,7 +277,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 60);//Number of clicks per rotation
+		bezel(watch, 0, 60, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
@@ -394,7 +415,7 @@ function chronoMinute(watch, marginTop, marginRight, marginBottom, marginLeft) {
 	var div = document.createElement("div");
 	div.id = "chronominute";
 	div.className = "watch brightness";
-	div.innerHTML = "<img src='img/"+watch+"/chronominute.png' id='minuteImg' class='imgDisplay'>";
+	div.innerHTML = "<img src='img/"+watch+"/chronominute.png' id='chronominuteImg' class='imgDisplay'>";
 	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
 		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
 	}
@@ -413,11 +434,34 @@ function chronoMinuteLume(watch, marginTop, marginRight, marginBottom, marginLef
     container.appendChild(div);
 };
 
+function chronoHour(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronohour";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/chronohour.png' id='chronohourImg' class='imgDisplay'>";
+	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+    container.appendChild(div);
+};
+
+function chronoHourLume(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "chronohourlume";
+	div.className = "watch lume";
+	div.innerHTML = "<img src='img/"+watch+"/chronohourlume.png' id='chronohourlumeImg' class='imgDisplay'>";
+	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+    container.appendChild(div);
+};
+
 var chronoPlay = 0;//Global variables to be passed into the timekeeping function
 var chronoReset = 0;
 
 function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLeft) {
-	var container = document.getElementById("watchcontainer");
 	//Creates the visual element
 	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
@@ -457,7 +501,6 @@ function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLe
 };
 
 function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLeft) {
-	var container = document.getElementById("watchcontainer");
 	//Creates the visual element
 	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
@@ -496,38 +539,87 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
 	};
 };
 
-function bezel(watch, clicks) {
+function bezel(watch, unidirectional, clicks, size) {
+	//Creates the visual element
 	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
 	div.id = "bezel";
 	div.className = "watch brightness";
 	div.innerHTML = "<img src='img/"+watch+"/bezel.png' id='bezelImg' class='imgDisplay'>";
-    container.appendChild(div);
+	//Creates the interactive element
+	var div2 = document.createElement("div");
+	div2.id = "bezelscrolllzone";
+	div2.className = "clickzone";
+	div2.style.zIndex="99";
+	if (size) {//Scales the scroll zone
+		div2.style.width=""+size+"%";
+		div2.style.paddingTop=""+size+"%";
+	}
+	container.appendChild(div);
+    container.appendChild(div2);
+	
 	//Bezel rotation
 	var bezelRotation = 0;
 	var touchmoveDelay = 0;
 	
-	document.getElementById("container").addEventListener("mousewheel", rotateBezel);
-	document.getElementById("container").addEventListener("touchmove", rotateBezelTouch);//For mobile devices
-	document.getElementById("container").addEventListener("touchend", rotateBezelTouchStop);
-	
+	//Function to detect mouse wheel direction
+	function detectMouseWheelDirection( e )
+	{
+		var delta = null,
+			direction = false
+		;
+		if ( !e ) { // if the event is not provided, we get it from the window object
+			e = window.event;
+		}
+		if ( e.wheelDelta ) { // will work in most cases
+			delta = e.wheelDelta / 60;
+		} else if ( e.detail ) { // fallback for Firefox
+			delta = -e.detail / 2;
+		}
+		if ( delta !== null ) {
+			direction = delta > 0 ? 'up' : 'down';
+		}
+
+		return direction;
+	}
+	function handleMouseWheelDirection( direction )
+	{
+		if ( direction == 'down' ) {
+			//Turn the bezel backwards
+			bezelRotation-=(360/clicks);
+		} else if ( direction == 'up') {
+			//Turn the bezel forwards if unidirectional
+			if (unidirectional) {
+				bezelRotation+=(360/clicks);
+			}
+		} else {
+			//Turn the bezel backwards if the direction of the mouse wheel could not be determined
+			bezelRotation-=(360/clicks);
+		}
+		//The bit that actually turns the bezel
+		if(document.body.contains(document.getElementById('bezel'))) {
+			document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
+		}
+		if(document.body.contains(document.getElementById('bezellume'))) {
+			document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
+		}
+	}
+	document.onmousewheel = function( e ) {
+		handleMouseWheelDirection( detectMouseWheelDirection( e ) );
+	};
+	if ( window.addEventListener ) {
+		document.addEventListener( 'DOMMouseScroll', function( e ) {
+			handleMouseWheelDirection( detectMouseWheelDirection( e ) );
+		});
+	}
 	//How to detect mouse wheel direction:
 	//https://deepmikoto.com/coding/1--javascript-detect-mouse-wheel-direction
 	
-	function rotateBezel() {
-		if (bezelRotation < 360) {
-				bezelRotation-=(360/clicks);
-			}
-			else if (bezelRotation > 360) {
-				bezelRotation = 0;
-			}
-			if(document.body.contains(document.getElementById('bezel'))) {
-				document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
-			}
-			if(document.body.contains(document.getElementById('bezellume'))) {
-				document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
-			}
-	};
+		
+	//Mobile event listeners
+	div2.addEventListener("touchmove", rotateBezelTouch);//For mobile devices
+	div2.addEventListener("touchend", rotateBezelTouchStop);
+	
 	function rotateBezelTouch() {//The mobile version
 		touchmoveDelay++;
 		if (touchmoveDelay >= 5) {
@@ -576,8 +668,12 @@ function analogueTime(beat, dateStart, dayEnd) {
 	var minutelume = document.getElementById("minutelume");
 	var second = document.getElementById("second");
 	var secondlume = document.getElementById("secondlume");
-	var chronosecond = document.getElementById("chronosecond");
+	var chronohour = document.getElementById("chronohour");
+	var chronohourlume = document.getElementById("chronohourllume");
 	var chronominute = document.getElementById("chronominute");
+	var chronominutelume = document.getElementById("chronominutelume");
+	var chronosecond = document.getElementById("chronosecond");
+	var chronosecondlume = document.getElementById("chronosecondlume");
 	
 	interval = setInterval(() => {
 		
@@ -619,38 +715,45 @@ function analogueTime(beat, dateStart, dayEnd) {
 		}
 		
 		if (hour) {
-			//hour.style.transform = `rotate(${(hr_rotation)+(min_rotation/12)+(sec_rotation/720)}deg)`;
 			hour.style.transform = `rotate(${hr_rotation}deg)`;
-		}
-		
-		if (hourlume) {
+			if (hourlume) {
 			hourlume.style.transform = `rotate(${hr_rotation}deg)`;
+			}
 		}
 		
 		if (minute) {
-			//minute.style.transform = `rotate(${(min_rotation)+(sec_rotation/60)+(ms_rotation/166.666667)}deg)`;
 			minute.style.transform = `rotate(${min_rotation}deg)`;
-		}
-		
-		if (minutelume) {
+			if (minutelume) {
 			minutelume.style.transform = `rotate(${min_rotation}deg)`;
+			}
 		}
 		
 		if (second) {
-			//second.style.transform = `rotate(${(sec_rotation)+(ms_rotation)}deg)`;
 			second.style.transform = `rotate(${sec_rotation}deg)`;
-		}
-		
-		if (secondlume) {
+			if (secondlume) {
 			secondlume.style.transform = `rotate(${sec_rotation}deg)`;
+			}
 		}
 		
 		if (chronoPlay) {
 			chronoAng+=(beat/166.6667);
-			//console.log(chronoAng);
 			if (chronosecond) {
-				chronosecond.style.transform = `rotate(${chronoAng * chronoPlay}deg)`;
-				chronominute.style.transform = `rotate(${12*Math.floor((chronoAng/30)/12)}deg)`;
+				chronosecond.style.transform = `rotate(${chronoAng}deg)`;
+				if (chronosecondlume) {
+				chronosecondlume.style.transform = `rotate(${chronoAng}deg)`;
+				}
+			}
+			if (chronominute) {
+				chronominute.style.transform = `rotate(${12*Math.floor(chronoAng/360)}deg)`;
+				if (chronominutelume) {
+				chronominutelume.style.transform = `rotate(${12*Math.floor(chronoAng/360)}deg)`;
+				}
+			}
+			if (chronohour) {
+				chronohour.style.transform = `rotate(${15*Math.floor(chronoAng/10800)}deg)`;
+				if (chronohourlume) {
+				chronohourlume.style.transform = `rotate(${15*Math.floor(chronoAng/10800)}deg)`;
+				}
 			}
 		}
 		
@@ -659,7 +762,21 @@ function analogueTime(beat, dateStart, dayEnd) {
 			chronoReset = 0;
 			if (chronosecond) {
 				chronosecond.style.transform = `rotate(${0}deg)`;
+				if (chronosecondlume) {
+					chronosecondlume.style.transform = `rotate(${0}deg)`;
+				}
+			}
+			if (chronominute) {
 				chronominute.style.transform = `rotate(${0}deg)`;
+				if (chronominutelume) {
+					chronominutelume.style.transform = `rotate(${0}deg)`;
+				}
+			}
+			if (chronohour) {
+				chronohour.style.transform = `rotate(${0}deg)`;
+				if (chronohourlume) {
+					chronohourlume.style.transform = `rotate(${0}deg)`;
+				}
 			}
 		}
 
