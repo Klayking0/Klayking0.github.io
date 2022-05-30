@@ -78,7 +78,7 @@ function watchSelect() {
 		minuteLume(watch);
 		chronoSecond(watch);
 		chronoSecondLume(watch);
-		bezel(watch, 1, 120, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezel(watch, 1, 120, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
@@ -98,7 +98,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 0, 120,80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezel(watch, 0, 120,80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
@@ -112,7 +112,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 0, 120, 75);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezel(watch, 0, 120, 75);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(100);//Beat rate goes in here
 	}
@@ -126,7 +126,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 0, 120, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezel(watch, 0, 120, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(142.8571428571429);//25,200vph (3.5Hz)
 	}
@@ -262,7 +262,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 0, 120, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezel(watch, 0, 120, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
@@ -277,7 +277,7 @@ function watchSelect() {
 		minuteLume(watch);
 		second(watch);
 		secondLume(watch);
-		bezel(watch, 0, 60, 80);//Unidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezel(watch, 0, 60, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
@@ -539,7 +539,7 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
 	};
 };
 
-function bezel(watch, unidirectional, clicks, size) {
+function bezel(watch, bidirectional, clicks, size) {
 	//Creates the visual element
 	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
@@ -588,8 +588,8 @@ function bezel(watch, unidirectional, clicks, size) {
 			//Turn the bezel backwards
 			bezelRotation-=(360/clicks);
 		} else if ( direction == 'up') {
-			//Turn the bezel forwards if unidirectional
-			if (unidirectional) {
+			//Turn the bezel forwards if bidirectional
+			if (bidirectional) {
 				bezelRotation+=(360/clicks);
 			}
 		} else {
