@@ -63,12 +63,12 @@ function watchSelect() {
 	//Spawn the components required to make the selected watch
 	if (watch == "sinn103") {
 		watchcontainer(watch);
-		chronoPusherStart(watch, 0, 0, 50, 85); //Offset percentage: top, right, bottom, left
-		chronoPusherReset(watch, 45, 0, 0, 85); //Offset percentage: top, right, bottom, left
 		date(watch);
 		day(watch);
 		face(watch);
 		faceLume(watch);
+		chronoPusherStart(watch, 0, 0, 50, 85); //Offset percentage: top, right, bottom, left
+		chronoPusherReset(watch, 45, 0, 0, 85); //Offset percentage: top, right, bottom, left
 		second(watch, 0, 34, 0, 0); //Offset percentage: top, right, bottom, left
 		chronoMinute(watch, 0, 0, 32.5, 0);//Offset percentage: top, right, bottom, left
 		chronoHour(watch, 0, 0, -32.5, 0);//Offset percentage: top, right, bottom, left
@@ -78,7 +78,7 @@ function watchSelect() {
 		minuteLume(watch);
 		chronoSecond(watch);
 		chronoSecondLume(watch);
-		bezel(watch, 1, 120, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezel(watch, 1, 60, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 		//3Hz = 21600vph:  1000ms (1 sec) / 6 (degrees each tick (21600/60)/60=6) = analogueTime(166.66667)
