@@ -200,7 +200,7 @@ function watchSelect() {
 		hour(watch);
 		minute(watch);
 		second(watch);
-		analogueTime(166.66667, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
+		analogueTime(166.66667, 22);//Beat rate, hour date starts changing, hour day ends changing
 	}
 	else if (watch == "grandseiko") {
 		watchcontainer(watch);
@@ -226,6 +226,26 @@ function watchSelect() {
 		minute(watch);
 		second(watch);
 		analogueTime(1000);//Beat rate goes in here
+	}else if (watch == "skagen2") {
+		watchcontainer(watch);
+		date(watch);
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(1000, 22);//Beat rate, hour date starts changing, hour day ends changing
+	}
+	else if (watch == "hruodland") {
+		watchcontainer(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		analogueTime(125);//Beat rate goes in here
 	}
 	else if (watch == "mig") {
 		watchcontainer(watch);
@@ -559,6 +579,10 @@ function bezel(watch, bidirectional, clicks, size) {
     container.appendChild(div2);
 	
 	
+	//I have shoved mousemove/mouseup functions inside mousedown but wasn't able to focus on doing more
+	//So might be better to restore the backup in the git folder from just before I started this
+	
+	
 	//Bezel rotation mk 3.0
 	//To fix:
 	//Bezel rotation gets messed up when rotating one watch, rotating another watch, then rotating the first again
@@ -578,58 +602,104 @@ function bezel(watch, bidirectional, clicks, size) {
 	function mousedown() {
 		isDragging = true;
 		initialDegrees = degreesFloored;//Save the initial angle that degreesFloored snaps to on mousedown
-	}
-	
-	function mouseup() {
-		isDragging = false;
-		bezelAng = bezelAngModifier;//Saves the new initial bezelAng of the visual element for next time
-	}
-
-	function mousemove(e) {
-		//if (!isDragging) return;
-		var bezelEvent = e;
-		if (e.targetTouches && e.targetTouches[0]) {
-			e.preventDefault(); 
-			bezelEvent = e.targetTouches[0];
-			mouseX = bezelEvent.pageX;
-			mouseY = bezelEvent.pageY;
-		}
-		else {
-			mouseX = e.clientX,
-			mouseY = e.clientY;
-		}
-
-		var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
-		centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
-		radians = Math.atan2(mouseX - centerX, mouseY - centerY),
-		degrees = (radians * (180 / Math.PI) * -1) + 180;
-		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
-		if (bidirectional) {
-			
-		}
-		angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
-		bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
-		//backwards version: bezelAngModifier = bezelAng + -Math.abs(angDifference);//bezelAngModifier will be the visual element rotation angle
-			
-		if (isDragging) {
-			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
-			//console.log(bezelAngModifier);
-			if (document.getElementById("bezellume")) {
-				document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
+		/*if (!isDragging) {
+			return;
+		}*/
+		//console.log(isDragging); //Below isDragging False is getting triggered loads of times for some reason
+		if (isTouchDevice) {
+			//div2.addEventListener("touchstart", mousedown);
+			document.addEventListener("touchmove", mousemove);
+			//document.addEventListener("touchend", mouseup);
 			}
+		else {
+			//div2.addEventListener("mousedown", mousedown);
+			document.addEventListener("mousemove", mousemove);
+			//document.addEventListener("mouseup", mouseup);
 		}
+		function mousemove(e) {
+			if (isTouchDevice) {
+				//div2.addEventListener("touchstart", mousedown);
+				//document.addEventListener("touchmove", mousemove);
+				document.addEventListener("touchend", mouseup);
+				}
+			else {
+				//div2.addEventListener("mousedown", mousedown);
+				//document.addEventListener("mousemove", mousemove);
+				document.addEventListener("mouseup", mouseup);
+			}
+			function mouseup() {
+				isDragging = false;
+				//console.log(isDragging); //isDragging False is getting triggered loads of times for some reason
+				bezelAng = bezelAngModifier;//Saves the new initial bezelAng of the visual element for next time
+			}
+			//if (!isDragging) return;
+			var bezelEvent = e;
+			if (e.targetTouches && e.targetTouches[0]) {
+				e.preventDefault(); 
+				bezelEvent = e.targetTouches[0];
+				mouseX = bezelEvent.pageX;
+				mouseY = bezelEvent.pageY;
+			}
+			else {
+				mouseX = e.clientX,
+				mouseY = e.clientY;
+			}
+
+			var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
+			centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
+			radians = Math.atan2(mouseX - centerX, mouseY - centerY),
+			degrees = (radians * (180 / Math.PI) * -1) + 180;
+			degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
+			if (bidirectional) {
+				
+			}
+			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
+			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
+			//backwards version: bezelAngModifier = bezelAng + -Math.abs(angDifference);//bezelAngModifier will be the visual element rotation angle
+				
+			if (isDragging) {
+				div.style.transform = 'rotate('+bezelAngModifier+'deg)';
+				//console.log(bezelAngModifier);
+				if (document.getElementById("bezellume")) {
+					document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
+				}
+			}
+		};
 	};
+	
+	
+
+	
 	
 	if (isTouchDevice) {
 		div2.addEventListener("touchstart", mousedown);
-		document.addEventListener("touchmove", mousemove);
-		document.addEventListener("touchend", mouseup);
+		//document.addEventListener("touchmove", mousemove);
+		//document.addEventListener("touchend", mouseup);
 		}
 	else {
 		div2.addEventListener("mousedown", mousedown);
-		document.addEventListener("mousemove", mousemove);
-		document.addEventListener("mouseup", mouseup);
+		//document.addEventListener("mousemove", mousemove);
+		//document.addEventListener("mouseup", mouseup);
 	}
+	
+	//Function on mousedown
+	//document.getElementById("div2").onmousedown = function() {
+	//	
+	//};
+	
+	//Function on mouseup
+	//document.onmouseup = function() {
+	//	This isn't valid I need to use eventlistener
+	//};
+	
+	//div2 mousedown gets ang, then calls mousemove function
+	//doc mouseup returns mousemove (mousemove nestled within mousedown?)
+	
+	//if istouchdevice, create mousedown func
+	//	get angles
+	//	mousedown func(if istouchdevice, create mousemove func)
+	//		mousemove func(if istouchdevice, create mouseup func)
+	//			mouseup func(if istouchdevice, return funcs)
 	
 	
 	
