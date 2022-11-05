@@ -116,6 +116,104 @@ function watchSelect() {
 		bezelLume(watch);
 		analogueTime(100);//Beat rate goes in here
 	}
+	else if (watch == "submariner2") {
+		watchcontainer(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		bezel(watch, 0, 120, 75);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezelLume(watch);
+		analogueTime(100);//Beat rate goes in here
+	}
+	else if (watch == "submariner3") {
+		watchcontainer(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		bezel(watch, 0, 120, 75);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezelLume(watch);
+		analogueTime(100);//Beat rate goes in here
+	}
+	else if (watch == "submariner4") {
+		watchcontainer(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		secondLume(watch);
+		bezel(watch, 0, 120, 75);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
+		bezelLume(watch);
+		analogueTime(100);//Beat rate goes in here
+	}
+	else if (watch == "oyster") {
+		watchcontainer(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		analogueTime(100);//Beat rate goes in here
+	}
+	else if (watch == "oyster2") {
+		watchcontainer(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		analogueTime(100);//Beat rate goes in here
+	}
+	else if (watch == "oyster3") {
+		watchcontainer(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		analogueTime(100);//Beat rate goes in here
+	}
+	else if (watch == "daydate") {
+		watchcontainer(watch);
+		date(watch);
+		day(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		analogueTime(100, 23.95, 0.05, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
+	}
+	else if (watch == "daydate2") {
+		watchcontainer(watch);
+		date(watch);
+		day(watch);
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(100, 23.95, 0.05, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
+	}
 	else if (watch == "nttd") {
 		watchcontainer(watch);
 		face(watch);
@@ -202,8 +300,44 @@ function watchSelect() {
 		second(watch);
 		analogueTime(166.66667, 22);//Beat rate, hour date starts changing, hour day ends changing
 	}
+	else if (watch == "cocktail2") {
+		watchcontainer(watch);
+		date(watch);
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(166.66667, 22);//Beat rate, hour date starts changing, hour day ends changing
+	}
+	else if (watch == "cocktail3") {
+		watchcontainer(watch);
+		date(watch);
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(166.66667, 22);//Beat rate, hour date starts changing, hour day ends changing
+	}
+	else if (watch == "cocktail4") {
+		watchcontainer(watch);
+		date(watch);
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(166.66667, 22);//Beat rate, hour date starts changing, hour day ends changing
+	}
 	else if (watch == "grandseiko") {
 		watchcontainer(watch);
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);//marginTop, marginRight, marginBottom, marginLeft: Offsets the hand. Must include all 4 numbers or none.
+		analogueTime(10);//Beat rate goes in here
+	}
+	else if (watch == "grandseiko2") {
+		watchcontainer(watch);
+		date(watch);
 		face(watch);
 		hour(watch);
 		minute(watch);
@@ -854,7 +988,7 @@ function bezelLume(watch) {
 var interval;
 
 //Function to display the time & date
-function analogueTime(beat, dateStart, dayEnd) {
+function analogueTime(beat, dateStart, dayEnd, dateReverse, dayReverse) {
 	
 	var chronoAng = 0;
 	//Finds any divs that can be rotated
@@ -899,7 +1033,12 @@ function analogueTime(beat, dateStart, dayEnd) {
 			else {
 				dat_turn = 0;
 			}
-			date.style.transform = `rotate(${dat_rotation + dat_turn}deg)`;
+			if (dateReverse) {
+				date.style.transform = `rotate(${(dat_rotation*-1) - dat_turn}deg)`;
+			}
+			else {
+				date.style.transform = `rotate(${dat_rotation + dat_turn}deg)`;
+			}
 		}
 		
 		if (day) {
@@ -909,7 +1048,12 @@ function analogueTime(beat, dateStart, dayEnd) {
 			else {
 				da_turn = 0;
 			}
-			day.style.transform = `rotate(${da_rotation - da_turn}deg)`;
+			if (dayReverse) {
+				day.style.transform = `rotate(${(da_rotation*-1) + da_turn}deg)`;
+			}
+			else {
+				day.style.transform = `rotate(${da_rotation - da_turn}deg)`;
+			}
 		}
 		
 		if (hour) {
