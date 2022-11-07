@@ -368,7 +368,7 @@ function watchSelect() {
 	}
 	else if (watch == "fairfield") {
 		watchcontainer(watch);
-		lightPusher(watch, 0, 0, 0, 100); //Offset percentage: top, right, bottom, left
+		lightPusher(watch, 0, 0, 0, 90); //Offset percentage: top, right, bottom, left
 		face(watch);
 		faceLight(watch);
 		hour(watch);
