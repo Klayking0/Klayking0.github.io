@@ -214,6 +214,16 @@ function watchSelect() {
 		second(watch);
 		analogueTime(100, 24, 0, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
 	}
+	else if (watch == "daydate3") {
+		watchcontainer(watch);
+		date(watch);
+		day(watch);
+		face(watch);
+		hour(watch);
+		minute(watch);
+		second(watch);
+		analogueTime(100, 24, 0, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
+	}
 	else if (watch == "nttd") {
 		watchcontainer(watch);
 		face(watch);

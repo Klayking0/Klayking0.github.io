@@ -103,6 +103,7 @@ img {
 
 input[type=range]{
 	-webkit-appearance: none;
+	width: 300px;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
