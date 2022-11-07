@@ -368,8 +368,9 @@ function watchSelect() {
 	}
 	else if (watch == "fairfield") {
 		watchcontainer(watch);
+		lightPusher(watch, 0, 0, 0, 100); //Offset percentage: top, right, bottom, left
 		face(watch);
-		faceLume(watch);
+		faceLight(watch);
 		hour(watch);
 		minute(watch);
 		second(watch);
@@ -505,6 +506,15 @@ function faceLume(watch) {
 	div.id = "facelume";
 	div.className = "watch lume";
 	div.innerHTML = "<img src='img/"+watch+"/facelume.png' id='facelumeImg' class='imgDisplay'>";
+    container.appendChild(div);
+};
+
+function faceLight(watch) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "facelight";
+	div.className = "watch light";
+	div.innerHTML = "<img src='img/"+watch+"/facelight.png' id='facelightImg' class='imgDisplay'>";
     container.appendChild(div);
 };
 
@@ -712,6 +722,48 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
 	function ButtonUp() {
 		div.style.margin = "0 0 0 0";
 		//chronoReset =  0 is set in the time code at the bottom, to prevent a quick button release missing the interval
+	};
+};
+
+function lightPusher(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	//Creates the visual element
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "lightpusher";
+	div.className = "watch brightness";
+	div.innerHTML = "<img src='img/"+watch+"/lightpusher.png' id='lightpusherImg' class='imgDisplay'>";
+	//Creates the clickable element
+	var div2 = document.createElement("div");
+	div2.id = "lightpusherclickzone";
+	div2.className = "clickzone";
+	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div2.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+	container.appendChild(div);
+    container.appendChild(div2);
+	
+	//Animating the pusher on click
+	if (isTouchDevice) {
+		div2.addEventListener("touchstart", ButtonDown);
+		div2.addEventListener("touchend", ButtonUp);
+		div2.addEventListener("touchcancel", ButtonUp);
+	}
+	else {
+		div2.addEventListener("mousedown", ButtonDown);
+		div2.addEventListener("mouseup", ButtonUp);
+		div2.addEventListener("mouseleave", ButtonUp);
+	}
+	
+	function ButtonDown() {
+		div.style.margin = "0 2% 0 0";//top, right, bottom, left
+		lightButton = 1;
+		var lightLevel = document.getElementById('slider').value;
+		document.documentElement.style.setProperty('--light', lightButton-(lightLevel/100));
+	};
+	function ButtonUp() {
+		div.style.margin = "0 0 0 0";
+		lightButton = 0;
+		document.documentElement.style.setProperty('--light', 0);
 	};
 };
 

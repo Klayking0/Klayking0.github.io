@@ -1,6 +1,7 @@
 :root {
   --brightness: 1; /*How light the scene is*/
   --lume: 0;
+  --light: 0;
   	overflow: hidden;
 }
 
@@ -88,6 +89,10 @@ img {
 
 .lume {
 	opacity: var(--lume);
+}
+
+.light {
+	opacity: var(--light);
 }
 
 .clickzone {
