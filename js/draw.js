@@ -102,6 +102,18 @@ function watchSelect() {
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
+	else if (watch == "marathon2") {
+		watchcontainer(watch);
+		date(watch);
+		face(watch);
+		faceLume(watch);
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		second(watch);
+		analogueTime(1000, 22);//Beat rate, hour date starts changing, hour day ends changing
+	}
 	else if (watch == "submariner") {
 		watchcontainer(watch);
 		face(watch);
