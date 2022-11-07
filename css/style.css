@@ -103,6 +103,7 @@ img {
 
 input[type=range]{
 	-webkit-appearance: none;
+	width: 400px;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -166,4 +167,103 @@ button {
 button:hover {
 	font-weight: bolder;
 	color: #008800;
+}
+
+.menuborder {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ffffff #0000ff #ffffff #ffffff;
+}
+
+.mainmenu {
+  height: 0px;
+}
+
+.mainmenu ul#nav {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.mainmenu ul#nav li {
+  display: inline-block;
+  position: relative;
+}
+
+.mainmenu ul#nav li a {
+  color: #266696;
+  display: block;
+  margin: 0 -2px;
+  padding: 2px 15px;
+  text-transform: uppercase;
+}
+
+.mainmenu ul#nav li:hover>a {
+  background: #11c3f1 none repeat scroll 0 0;
+}
+
+
+/*=================
+DropDown Menu
+===================*/
+
+#nav>li {
+  position: relative;
+}
+
+#nav>li:hover ul {
+  opacity: 1;
+  z-index: 9999;
+  top: 100%;
+  visibility: visible;
+}
+
+#nav>li ul {
+  background: #fff none repeat scroll 0 0;
+  opacity: 0;
+  left: -2px;
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  text-align: left;
+  transition: all 0.5s ease 0s;
+  width: 204px;
+  padding-left: 2px;
+  z-index: -99999;
+  top: 150%;
+  visibility: hidden
+}
+
+#nav>li ul li {
+  display: block;
+  width: 200px;
+}
+
+.mainmenu ul#nav li ul li a:hover {
+  color: #fff;
+  border-radius: 0 0 80px 0;
+  border-left: 4px solid #000;
+  padding-left: 10px;
+}
+
+.mainmenu ul#nav li ul li a {
+  border-bottom: 1px solid #ddd;
+  color: #000;
+  padding: 10px 10px;
+}
+
+.mainmenu ul#nav li ul li.sub-sub-menu ul {
+  position: absolute;
+  left: 100%;
+  top: 0px;
+  display: none;
+}
+
+.mainmenu ul#nav li ul li.sub-sub-menu:hover ul {
+  display: block;
+}
+
+
 }

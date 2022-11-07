@@ -202,7 +202,7 @@ function watchSelect() {
 		minute(watch);
 		minuteLume(watch);
 		second(watch);
-		analogueTime(100, 23.95, 0.05, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
+		analogueTime(100, 24, 0, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
 	}
 	else if (watch == "daydate2") {
 		watchcontainer(watch);
@@ -212,7 +212,7 @@ function watchSelect() {
 		hour(watch);
 		minute(watch);
 		second(watch);
-		analogueTime(100, 23.95, 0.05, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
+		analogueTime(100, 24, 0, 0, 1);//Beat rate, hour date starts changing, hour day ends changing, date reversal, day reversal
 	}
 	else if (watch == "nttd") {
 		watchcontainer(watch);
@@ -889,7 +889,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	
 	
 	
-	/* 
+	//Old mousewheel bezel rotation 
 	//Bezel rotation
 	var bezelRotation = 0;
 	var touchmoveDelay = 0;
@@ -947,7 +947,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	//How to detect mouse wheel direction:
 	//https://deepmikoto.com/coding/1--javascript-detect-mouse-wheel-direction
 	
-		
+	/*Old mousewheel accompanying mobile bezel rotation	
 	//Mobile event listeners
 	div2.addEventListener("touchmove", rotateBezelTouch);//For mobile devices
 	div2.addEventListener("touchend", rotateBezelTouchStop);
