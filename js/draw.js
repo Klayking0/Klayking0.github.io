@@ -4,12 +4,15 @@ document.addEventListener('contextmenu', event => event.preventDefault());
 //Detect touch devices
 var isTouchDevice = 'ontouchstart' in document.documentElement;
 
-//Brightness slider
-document.getElementById("slider").oninput = function() {
-	document.body.style.backgroundColor =  'hsl(0, 0%, '+this.value+'%)';
-	document.documentElement.style.setProperty('--brightness', this.value/100);
-	document.documentElement.style.setProperty('--lume', 1-(this.value/100));
-	document.getElementById('dropdown').style.backgroundColor = 'hsl(0, 0%, '+this.value+'%)';
+//Brightness function
+function brightness() {
+	var brightnessSlider = document.getElementById("slider");
+	var lumeSlider = document.getElementById("slider2");
+	document.body.style.backgroundColor =  'hsl(0, 0%, '+brightnessSlider.value+'%)';
+	document.documentElement.style.setProperty('--brightness', brightnessSlider.value/100);
+	document.documentElement.style.setProperty('--lume', (1-(brightnessSlider.value/100))*lumeSlider.value/100);
+	document.documentElement.style.setProperty('--trit', 1-(brightnessSlider.value/100));
+	document.getElementById('dropdown').style.backgroundColor = 'hsl(0, 0%, '+brightnessSlider.value+'%)';
 };
 
 //Fullscreen toggle
@@ -91,13 +94,13 @@ function watchSelect() {
 		watchcontainer(watch);
 		date(watch);
 		face(watch);
-		faceLume(watch);
+		faceTrit(watch);
 		hour(watch);
-		hourLume(watch);
+		hourTrit(watch);
 		minute(watch);
-		minuteLume(watch);
+		minuteTrit(watch);
 		second(watch);
-		secondLume(watch);
+		secondTrit(watch);
 		bezel(watch, 0, 120,80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
@@ -106,11 +109,11 @@ function watchSelect() {
 		watchcontainer(watch);
 		date(watch);
 		face(watch);
-		faceLume(watch);
+		faceTrit(watch);
 		hour(watch);
-		hourLume(watch);
+		hourTrit(watch);
 		minute(watch);
-		minuteLume(watch);
+		minuteTrit(watch);
 		second(watch);
 		analogueTime(1000, 22);//Beat rate, hour date starts changing, hour day ends changing
 	}
@@ -433,28 +436,14 @@ function watchSelect() {
 		date(watch);
 		face(watch);
 		faceLume(watch);
+		faceTrit(watch);
 		hour(watch);
-		hourLume(watch);
+		hourTrit(watch);
 		minute(watch);
-		minuteLume(watch);
+		minuteTrit(watch);
 		second(watch);
-		secondLume(watch);
+		secondTrit(watch);
 		bezel(watch, 0, 120, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
-		bezelLume(watch);
-		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
-	}
-	else if (watch == "marathonmod2") {
-		watchcontainer(watch);
-		date(watch);
-		face(watch);
-		faceLume(watch);
-		hour(watch);
-		hourLume(watch);
-		minute(watch);
-		minuteLume(watch);
-		second(watch);
-		secondLume(watch);
-		bezel(watch, 0, 60, 80);//Bidirectional, Clicks per rotation, Interaction zone scale(%)
 		bezelLume(watch);
 		analogueTime(125, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
 	}
@@ -509,6 +498,15 @@ function faceLume(watch) {
     container.appendChild(div);
 };
 
+function faceTrit(watch) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "facetrit";
+	div.className = "watch trit";
+	div.innerHTML = "<img src='img/"+watch+"/facetrit.png' id='facetritImg' class='imgDisplay'>";
+    container.appendChild(div);
+};
+
 function faceLight(watch) {
 	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
@@ -536,6 +534,15 @@ function hourLume(watch) {
     container.appendChild(div);
 };
 
+function hourTrit(watch) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "hourtrit";
+	div.className = "watch trit";
+	div.innerHTML = "<img src='img/"+watch+"/hourtrit.png' id='hourtritImg' class='imgDisplay'>";
+    container.appendChild(div);
+};
+
 function minute(watch) {
 	var container = document.getElementById("watchcontainer");
 	var div = document.createElement("div");
@@ -551,6 +558,15 @@ function minuteLume(watch) {
 	div.id = "minutelume";
 	div.className = "watch lume";
 	div.innerHTML = "<img src='img/"+watch+"/minutelume.png' id='minutelumeImg' class='imgDisplay'>";
+    container.appendChild(div);
+};
+
+function minuteTrit(watch) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "minutetrit";
+	div.className = "watch trit";
+	div.innerHTML = "<img src='img/"+watch+"/minutetrit.png' id='minutetritImg' class='imgDisplay'>";
     container.appendChild(div);
 };
 
@@ -572,6 +588,18 @@ function secondLume(watch, marginTop, marginRight, marginBottom, marginLeft) {
 	div.id = "secondlume";
 	div.className = "watch lume";
 	div.innerHTML = "<img src='img/"+watch+"/secondlume.png' id='secondlumeImg' class='imgDisplay'>";
+    if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
+		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
+	}
+	container.appendChild(div);
+};
+
+function secondTrit(watch, marginTop, marginRight, marginBottom, marginLeft) {
+	var container = document.getElementById("watchcontainer");
+	var div = document.createElement("div");
+	div.id = "secondtrit";
+	div.className = "watch trit";
+	div.innerHTML = "<img src='img/"+watch+"/secondtrit.png' id='secondtritImg' class='imgDisplay'>";
     if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
 		div.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
 	}
@@ -1070,10 +1098,13 @@ function analogueTime(beat, dateStart, dayEnd, dateReverse, dayReverse) {
 	var day = document.getElementById("day");
 	var hour = document.getElementById("hour");
 	var hourlume = document.getElementById("hourlume");
+	var hourtrit = document.getElementById("hourtrit");
 	var minute = document.getElementById("minute");
 	var minutelume = document.getElementById("minutelume");
+	var minutetrit = document.getElementById("minutetrit");
 	var second = document.getElementById("second");
 	var secondlume = document.getElementById("secondlume");
+	var secondtrit = document.getElementById("secondtrit");
 	var chronohour = document.getElementById("chronohour");
 	var chronohourlume = document.getElementById("chronohourllume");
 	var chronominute = document.getElementById("chronominute");
@@ -1135,6 +1166,9 @@ function analogueTime(beat, dateStart, dayEnd, dateReverse, dayReverse) {
 			if (hourlume) {
 			hourlume.style.transform = `rotate(${hr_rotation}deg)`;
 			}
+			if (hourtrit) {
+			hourtrit.style.transform = `rotate(${hr_rotation}deg)`;
+			}
 		}
 		
 		if (minute) {
@@ -1142,12 +1176,18 @@ function analogueTime(beat, dateStart, dayEnd, dateReverse, dayReverse) {
 			if (minutelume) {
 			minutelume.style.transform = `rotate(${min_rotation}deg)`;
 			}
+			if (minutetrit) {
+			minutetrit.style.transform = `rotate(${min_rotation}deg)`;
+			}
 		}
 		
 		if (second) {
 			second.style.transform = `rotate(${sec_rotation}deg)`;
 			if (secondlume) {
 			secondlume.style.transform = `rotate(${sec_rotation}deg)`;
+			}
+			if (secondtrit) {
+			secondtrit.style.transform = `rotate(${sec_rotation}deg)`;
 			}
 		}
 		
