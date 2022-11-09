@@ -824,6 +824,11 @@ function bezel(watch, bidirectional, clicks, size) {
 	bezelBox = div2.getBoundingClientRect(),
 	centerPoint = window.getComputedStyle(div2).transformOrigin,
 	centers = centerPoint.split(" ");
+	window.onresize = function(){//This recalculates the center point to prevent issues when resizing the window
+		bezelBox = div2.getBoundingClientRect(),
+		centerPoint = window.getComputedStyle(div2).transformOrigin,
+		centers = centerPoint.split(" ");
+	};
 
 	function mousedown() {
 		isDragging = true;
@@ -853,8 +858,7 @@ function bezel(watch, bidirectional, clicks, size) {
     	radians = Math.atan2(mouseX - centerX, mouseY - centerY),
     	degrees = (radians * (180 / Math.PI) * -1) + 180;
 		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
-			
-			
+
 		if (isDragging) {
 			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
 			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
