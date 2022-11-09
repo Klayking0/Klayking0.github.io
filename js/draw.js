@@ -840,7 +840,7 @@ function bezel(watch, bidirectional, clicks, size) {
 		bezelAng = bezelAngModifier;//Saves the new initial bezelAng of the visual element for next time
 	};
 		
-	function mousemove(e) {
+	/*function mousemove(e) {
 		var bezelEvent = e;
 		if (e.targetTouches && e.targetTouches[0]) {
 			e.preventDefault(); 
@@ -851,7 +851,19 @@ function bezel(watch, bidirectional, clicks, size) {
 		else {
 			mouseX = e.clientX,
 			mouseY = e.clientY;
+		}*/
+		
+	function mousemove(e) {
+		if(e.type == 'touchstart'){
+			var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+			var touch = evt.touches[0] || evt.changedTouches[0];
+			mouseX = touch.pageX;
+			mouseY = touch.pageY;
+		} else {
+			mouseX = e.clientX,
+			mouseY = e.clientY;
 		}
+		
 
 		var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
 		centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
