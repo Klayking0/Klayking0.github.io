@@ -880,7 +880,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	};
 	
 	if (isTouchDevice) {
-		div2.addEventListener("touchmove", mousedown);
+		div2.addEventListener("touchstart", mousedown);
 		document.addEventListener("touchmove", mousemove);
 		document.addEventListener("touchend", mouseup);
 	}
