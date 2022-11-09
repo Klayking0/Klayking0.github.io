@@ -843,10 +843,10 @@ function bezel(watch, bidirectional, clicks, size) {
 	function mousemove(e) {
 		var bezelEvent = e;
 		if (e.targetTouches && e.targetTouches[0]) {
-			e.preventDefault(); 
-			bezelEvent = e.targetTouches[0];
-			mouseX = bezelEvent.pageX;
-			mouseY = bezelEvent.pageY;
+			//e.preventDefault(); 
+			//bezelEvent = e.targetTouches[0];
+			mouseX = e.pageX;
+			mouseY = e.pageY;
 		}
 		else {
 			mouseX = e.clientX,
