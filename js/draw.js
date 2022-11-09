@@ -873,6 +873,7 @@ function bezel(watch, bidirectional, clicks, size) {
 			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
 			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
 			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
+			document.getElementById('title').innerHTML = initialDegrees;
 			if (document.getElementById("bezellume")) {
 				document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
 			}
