@@ -814,16 +814,6 @@ function bezel(watch, bidirectional, clicks, size) {
 	container.appendChild(div);//Adds the divs into the container
     container.appendChild(div2);
 	
-	
-	//I have shoved mousemove/mouseup functions inside mousedown but wasn't able to focus on doing more
-	//So might be better to restore the backup in the git folder from just before I started this
-	
-	
-	//Bezel rotation mk 3.0
-	//To fix:
-	//Bezel rotation gets messed up when rotating one watch, rotating another watch, then rotating the first again
-	//Moving brightness slider causes bezel rotation to jump around
-	//Need to add bidirectional/unidirectional support
 	var isDragging = false;
 	var degreesFloored = 0;//Current clickzone angle value while dragging
 	var bezelAng = 0;//Angle of visual bezel at beginning of each drag event
@@ -832,249 +822,59 @@ function bezel(watch, bidirectional, clicks, size) {
 	var bezelAngModifier = 0;//Calculates bezelAng + angDifference to add rotation to visual bezel
 	
 	bezelBox = div2.getBoundingClientRect(),
-	centerPoint = window.getComputedStyle(div).transformOrigin,
+	centerPoint = window.getComputedStyle(div2).transformOrigin,
 	centers = centerPoint.split(" ");
 
 	function mousedown() {
 		isDragging = true;
 		initialDegrees = degreesFloored;//Save the initial angle that degreesFloored snaps to on mousedown
-		/*if (!isDragging) {
-			return;
-		}*/
-		//console.log(isDragging); //Below isDragging False is getting triggered loads of times for some reason
-		if (isTouchDevice) {
-			//div2.addEventListener("touchstart", mousedown);
-			document.addEventListener("touchmove", mousemove);
-			//document.addEventListener("touchend", mouseup);
-			}
-		else {
-			//div2.addEventListener("mousedown", mousedown);
-			document.addEventListener("mousemove", mousemove);
-			//document.addEventListener("mouseup", mouseup);
-		}
-		function mousemove(e) {
-			if (isTouchDevice) {
-				//div2.addEventListener("touchstart", mousedown);
-				//document.addEventListener("touchmove", mousemove);
-				document.addEventListener("touchend", mouseup);
-				}
-			else {
-				//div2.addEventListener("mousedown", mousedown);
-				//document.addEventListener("mousemove", mousemove);
-				document.addEventListener("mouseup", mouseup);
-			}
-			function mouseup() {
-				isDragging = false;
-				//console.log(isDragging); //isDragging False is getting triggered loads of times for some reason
-				bezelAng = bezelAngModifier;//Saves the new initial bezelAng of the visual element for next time
-			}
-			//if (!isDragging) return;
-			var bezelEvent = e;
-			if (e.targetTouches && e.targetTouches[0]) {
-				e.preventDefault(); 
-				bezelEvent = e.targetTouches[0];
-				mouseX = bezelEvent.pageX;
-				mouseY = bezelEvent.pageY;
-			}
-			else {
-				mouseX = e.clientX,
-				mouseY = e.clientY;
-			}
-
-			var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
-			centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
-			radians = Math.atan2(mouseX - centerX, mouseY - centerY),
-			degrees = (radians * (180 / Math.PI) * -1) + 180;
-			degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
-			if (bidirectional) {
-				
-			}
-			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
-			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
-			//backwards version: bezelAngModifier = bezelAng + -Math.abs(angDifference);//bezelAngModifier will be the visual element rotation angle
-				
-			if (isDragging) {
-				div.style.transform = 'rotate('+bezelAngModifier+'deg)';
-				//console.log(bezelAngModifier);
-				if (document.getElementById("bezellume")) {
-					document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
-				}
-			}
-		};
 	};
 	
-	
+	function mouseup() {
+		isDragging = false;
+		bezelAng = bezelAngModifier;//Saves the new initial bezelAng of the visual element for next time
+	};
+		
+	function mousemove(e) {
+		var bezelEvent = e;
+		if (e.targetTouches && e.targetTouches[0]) {
+			e.preventDefault(); 
+			bezelEvent = e.targetTouches[0];
+			mouseX = bezelEvent.pageX;
+			mouseY = bezelEvent.pageY;
+		}
+		else {
+			mouseX = e.clientX,
+			mouseY = e.clientY;
+		}
 
-	
+		var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
+		centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
+    	radians = Math.atan2(mouseX - centerX, mouseY - centerY),
+    	degrees = (radians * (180 / Math.PI) * -1) + 180;
+		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
+			
+			
+		if (isDragging) {
+			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
+			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
+			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
+			if (document.getElementById("bezellume")) {
+				document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
+			}
+		}
+	};
 	
 	if (isTouchDevice) {
 		div2.addEventListener("touchstart", mousedown);
-		//document.addEventListener("touchmove", mousemove);
-		//document.addEventListener("touchend", mouseup);
-		}
+		document.addEventListener("touchmove", mousemove);
+		document.addEventListener("touchend", mouseup);
+	}
 	else {
 		div2.addEventListener("mousedown", mousedown);
-		//document.addEventListener("mousemove", mousemove);
-		//document.addEventListener("mouseup", mouseup);
+		document.addEventListener("mousemove", mousemove);
+		document.addEventListener("mouseup", mouseup);
 	}
-	
-	//Function on mousedown
-	//document.getElementById("div2").onmousedown = function() {
-	//	
-	//};
-	
-	//Function on mouseup
-	//document.onmouseup = function() {
-	//	This isn't valid I need to use eventlistener
-	//};
-	
-	//div2 mousedown gets ang, then calls mousemove function
-	//doc mouseup returns mousemove (mousemove nestled within mousedown?)
-	
-	//if istouchdevice, create mousedown func
-	//	get angles
-	//	mousedown func(if istouchdevice, create mousemove func)
-	//		mousemove func(if istouchdevice, create mouseup func)
-	//			mouseup func(if istouchdevice, return funcs)
-	
-	
-	
-	
-	
-	/* const rotate = (div2) => {//Code to make the bezel turn when dragged
-		let ang = 0; // All angles are expressed in radians
-		let angStart = 0;
-		let isStart = false;
-		const angXY = (ev) => {
-			const bcr = div2.getBoundingClientRect();
-			const radius = bcr.width / 2;
-			const { clientX, clientY } = ev.touches ? ev.touches[0] : ev;
-			const y = clientY - bcr.top - radius;  // y from center
-			const x = clientX - bcr.left - radius; // x from center
-			return Math.atan2(y, x);
-		};
-		const mousedown = (ev) => {
-			isStart = true;
-			angStart = angXY(ev) - ang;
-		};
-		const mousemove = (ev) => {
-			if (!isStart) return;
-			ev.preventDefault();
-			ang = angXY(ev) - angStart;
-			//div.style.transform = `rotateZ(${ang}rad)`;
-			div.style.transform = `rotateZ(${ang}rad)`;
-			//console.log(div.style.transform = `rotateZ(${ang}rad)`);
-			//radians = Math.atan2(mouseX - centerX, mouseY - centerY),
-    		//degrees = (radians * (180 / Math.PI) * -1) + 180; 
-			//console.log((ang * (180 / Math.PI) * -1) + 180);
-			//console.log(ang*57.2957795);//Converts radians to degrees
-			if (document.getElementById("bezellume")) {
-				document.getElementById("bezellume").style.transform = `rotateZ(${ang}rad)`;
-			}
-		};
-		const mouseup = () => {
-			isStart = false; 
-		};
-		if (isTouchDevice) {
-			div2.addEventListener("touchstart", mousedown);
-			document.addEventListener("touchmove", mousemove);
-			document.addEventListener("touchend", mouseup);
-		}
-		else {
-			div2.addEventListener("mousedown", mousedown);
-			document.addEventListener("mousemove", mousemove);
-			document.addEventListener("mouseup", mouseup);
-		}
-	};
-	document.querySelectorAll("#bezelclickzone").forEach(rotate);//I cannot for the life of me convert this to a single element selector... */
-	//https://stackoverflow.com/questions/13863974/rotate-element-based-on-touch-event
-	
-	
-	
-	//Old mousewheel bezel rotation 
-	//Bezel rotation
-	var bezelRotation = 0;
-	var touchmoveDelay = 0;
-	
-	//Function to detect mouse wheel direction
-	function detectMouseWheelDirection( e )
-	{
-		var delta = null,
-			direction = false
-		;
-		if ( !e ) { // if the event is not provided, we get it from the window object
-			e = window.event;
-		}
-		if ( e.wheelDelta ) { // will work in most cases
-			delta = e.wheelDelta / 60;
-		} else if ( e.detail ) { // fallback for Firefox
-			delta = -e.detail / 2;
-		}
-		if ( delta !== null ) {
-			direction = delta > 0 ? 'up' : 'down';
-		}
-
-		return direction;
-	}
-	function handleMouseWheelDirection( direction )
-	{
-		if ( direction == 'down' ) {
-			//Turn the bezel backwards
-			bezelRotation-=(360/clicks);
-		} else if ( direction == 'up') {
-			//Turn the bezel forwards if bidirectional
-			if (bidirectional) {
-				bezelRotation+=(360/clicks);
-			}
-		} else {
-			//Turn the bezel backwards if the direction of the mouse wheel could not be determined
-			bezelRotation-=(360/clicks);
-		}
-		//The bit that actually turns the bezel
-		if(document.body.contains(document.getElementById('bezel'))) {
-			document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
-		}
-		if(document.body.contains(document.getElementById('bezellume'))) {
-			document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
-		}
-	}
-	document.onmousewheel = function( e ) {
-		handleMouseWheelDirection( detectMouseWheelDirection( e ) );
-	};
-	if ( window.addEventListener ) {
-		document.addEventListener( 'DOMMouseScroll', function( e ) {
-			handleMouseWheelDirection( detectMouseWheelDirection( e ) );
-		});
-	}
-	//How to detect mouse wheel direction:
-	//https://deepmikoto.com/coding/1--javascript-detect-mouse-wheel-direction
-	
-	/*Old mousewheel accompanying mobile bezel rotation	
-	//Mobile event listeners
-	div2.addEventListener("touchmove", rotateBezelTouch);//For mobile devices
-	div2.addEventListener("touchend", rotateBezelTouchStop);
-	
-	function rotateBezelTouch() {//The mobile version
-		touchmoveDelay++;
-		if (touchmoveDelay >= 5) {
-			if (bezelRotation < 360) {
-					bezelRotation-=(360/clicks);
-				}
-				else if (bezelRotation > 360) {
-					bezelRotation = 0;
-				}
-				if(document.body.contains(document.getElementById('bezel'))) {
-					document.getElementById("bezel").style.transform = `rotate(${bezelRotation}deg)`;
-				}
-				if(document.body.contains(document.getElementById('bezellume'))) {
-					document.getElementById("bezellume").style.transform = `rotate(${bezelRotation}deg)`;
-				}
-			touchmoveDelay = 0;
-		};
-	};
-	function rotateBezelTouchStop() {
-		touchmoveDelay = 0;
-	}; */
 };
 
 function bezelLume(watch) {
