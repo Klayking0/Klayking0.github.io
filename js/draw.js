@@ -820,9 +820,6 @@ function bezel(watch, bidirectional, clicks, size) {
 	var initialDegrees = 0;//Initial value that the clickzone angle snaps to on mousedown
 	var angDifference = 0;//Calculates degreesFloored - initialDegrees to get difference in angle
 	var bezelAngModifier = 0;//Calculates bezelAng + angDifference to add rotation to visual bezel
-	var mouseX = 0;//Gets the coordinates of when the user touches / mouses over the screen
-	var mouseY = 0;
-	var bezelEvent;
 	
 	bezelBox = div2.getBoundingClientRect(),
 	centerPoint = window.getComputedStyle(div2).transformOrigin,
@@ -833,22 +830,9 @@ function bezel(watch, bidirectional, clicks, size) {
 		centers = centerPoint.split(" ");
 	};
 
-	function mousedown(e) {
+	function mousedown() {
 		isDragging = true;
 		initialDegrees = degreesFloored;//Save the initial angle that degreesFloored snaps to on mousedown
-		bezelEvent = e;
-		if (e.targetTouches && e.targetTouches[0]) {
-			e.preventDefault(); 
-			bezelEvent = e.targetTouches[0];
-			mouseX = bezelEvent.pageX;
-			mouseY = bezelEvent.pageY;
-		}
-		/*else {
-			mouseX = e.clientX,
-			mouseY = e.clientY;
-			console.log(mouseX);
-			console.log(mouseY);
-		}*/
 	};
 	
 	function mouseup() {
@@ -857,7 +841,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	};
 		
 	function mousemove(e) {
-		bezelEvent = e;
+		var bezelEvent = e;
 		if (e.targetTouches && e.targetTouches[0]) {
 			e.preventDefault(); 
 			bezelEvent = e.targetTouches[0];
@@ -897,7 +881,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	
 	if (isTouchDevice) {
 		div2.addEventListener("touchstart", mousedown);
-		document.addEventListener("touchmove", mousemove);
+		div2.addEventListener("touchmove", mousemove);
 		document.addEventListener("touchend", mouseup);
 	}
 	else {
