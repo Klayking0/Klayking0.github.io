@@ -833,8 +833,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	function mousedown(e) {
 		isDragging = true;
 		
-		//document.getElementById('title').innerHTML = initialDegrees + " + " + degreesFloored;
-		
+		//This stuff is copied from mousemove. Required to get initialDegrees on touch devices
 		var bezelEvent = e;
 		if (e.targetTouches && e.targetTouches[0]) {
 			e.preventDefault(); 
@@ -846,17 +845,14 @@ function bezel(watch, bidirectional, clicks, size) {
 			mouseX = e.clientX,
 			mouseY = e.clientY;
 		}
-		
-		
+
 		var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
 		centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
     	radians = Math.atan2(mouseX - centerX, mouseY - centerY),
     	degrees = (radians * (180 / Math.PI) * -1) + 180;
 		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
-		document.getElementById('title').innerHTML = initialDegrees + " + " + degreesFloored;
 		
 		initialDegrees = degreesFloored;//Save the initial angle that degreesFloored snaps to on mousedown
-		
 	};
 	
 	function mouseup() {
@@ -876,28 +872,16 @@ function bezel(watch, bidirectional, clicks, size) {
 			mouseX = e.clientX,
 			mouseY = e.clientY;
 		}
-		//This block does exactly the same thing as the one above. Still doesn't fix mobile bezel snapping to touch point. Might be useful? Keeping it commented.
-		/*if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
-			var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
-			var touch = evt.touches[0] || evt.changedTouches[0];
-			mouseX = touch.pageX;
-			mouseY = touch.pageY;
-		} else {
-			mouseX = e.clientX,
-			mouseY = e.clientY;
-		}*/
-		
+
 		var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
 		centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
     	radians = Math.atan2(mouseX - centerX, mouseY - centerY),
     	degrees = (radians * (180 / Math.PI) * -1) + 180;
 		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
-		//console.log(degreesFloored);
 
 		if (isDragging) {
 			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
 			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
-			document.getElementById('title').innerHTML = "isDragging: " + isDragging + "</br>initialDegrees: " + initialDegrees + "</br>degreesFloored " + degreesFloored + "</br>angDifference " + angDifference + "</br>bezelAngModifier " + bezelAngModifier + "</br>bezelAng " + bezelAng;
 			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
 			if (document.getElementById("bezellume")) {
 				document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
