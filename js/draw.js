@@ -822,6 +822,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	var bezelAngModifier = 0;//Calculates bezelAng + angDifference to add rotation to visual bezel
 	var mouseX = 0;//Gets the coordinates of when the user touches / mouses over the screen
 	var mouseY = 0;
+	var bezelEvent;
 	
 	bezelBox = div2.getBoundingClientRect(),
 	centerPoint = window.getComputedStyle(div2).transformOrigin,
@@ -835,7 +836,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	function mousedown(e) {
 		isDragging = true;
 		initialDegrees = degreesFloored;//Save the initial angle that degreesFloored snaps to on mousedown
-		
+		bezelEvent = e;
 		if (e.targetTouches && e.targetTouches[0]) {
 			e.preventDefault(); 
 			bezelEvent = e.targetTouches[0];
@@ -856,7 +857,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	};
 		
 	function mousemove(e) {
-		var bezelEvent = e;
+		bezelEvent = e;
 		if (e.targetTouches && e.targetTouches[0]) {
 			e.preventDefault(); 
 			bezelEvent = e.targetTouches[0];
