@@ -854,7 +854,7 @@ function bezel(watch, bidirectional, clicks, size) {
 		}*/
 		
 	function mousemove(e) {
-		if(e.type == 'touchstart'){
+		if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
 			var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
 			var touch = evt.touches[0] || evt.changedTouches[0];
 			mouseX = touch.pageX;
