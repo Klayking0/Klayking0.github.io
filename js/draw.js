@@ -832,7 +832,7 @@ function bezel(watch, bidirectional, clicks, size) {
 
 	function mousedown(e) {
 		isDragging = true;
-		initialDegrees = degreesFloored;//Save the initial angle that degreesFloored snaps to on mousedown
+		
 		//document.getElementById('title').innerHTML = initialDegrees + " + " + degreesFloored;
 		
 		var bezelEvent = e;
@@ -846,16 +846,7 @@ function bezel(watch, bidirectional, clicks, size) {
 			mouseX = e.clientX,
 			mouseY = e.clientY;
 		}
-		//This block does exactly the same thing as the one above. Still doesn't fix mobile bezel snapping to touch point. Might be useful? Keeping it commented.
-		/*if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
-			var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
-			var touch = evt.touches[0] || evt.changedTouches[0];
-			mouseX = touch.pageX;
-			mouseY = touch.pageY;
-		} else {
-			mouseX = e.clientX,
-			mouseY = e.clientY;
-		}*/
+		
 		
 		var centerY = bezelBox.top + parseInt(centers[1]) - window.pageYOffset,
 		centerX = bezelBox.left + parseInt(centers[0]) - window.pageXOffset,
@@ -863,6 +854,8 @@ function bezel(watch, bidirectional, clicks, size) {
     	degrees = (radians * (180 / Math.PI) * -1) + 180;
 		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
 		document.getElementById('title').innerHTML = initialDegrees + " + " + degreesFloored;
+		
+		initialDegrees = degreesFloored;//Save the initial angle that degreesFloored snaps to on mousedown
 		
 	};
 	
