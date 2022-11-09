@@ -873,7 +873,7 @@ function bezel(watch, bidirectional, clicks, size) {
 		if (isDragging) {
 			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
 			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
-			document.getElementById('title').innerHTML = "isDragging: " + isDragging + "</br>initialDegrees: " + initialDegrees + "</br>degreesFloored " + degreesFloored + "</br>angDifference " + angDifference + "</br>bezelAngModifier " + bezelAngModifier;
+			document.getElementById('title').innerHTML = "isDragging: " + isDragging + "</br>initialDegrees: " + initialDegrees + "</br>degreesFloored " + degreesFloored + "</br>angDifference " + angDifference + "</br>bezelAngModifier " + bezelAngModifier + "</br>bezelAng " + bezelAng;
 			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
 			if (document.getElementById("bezellume")) {
 				document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
