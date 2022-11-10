@@ -890,7 +890,7 @@ function bezel(watch, bidirectional, clicks, size) {
 				bezelAngModifierPrev = bezelAngModifier;
 				soundPlay("click1");
 			}
-			
+
 			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
 			if (document.getElementById("bezellume")) {
 				document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
@@ -1095,27 +1095,25 @@ soundPlay = function(sound) {
 	//Add sounds here
 	if (interacted) {
 		if (sound == "tick1") {
-			navigator.vibrate([20]);
 			let tick1 = new Audio('mp3/tick1.mp3');
 			tick1.volume = 0.05;
 			tick1.loop = false;
 			tick1.play();
 		}
 		else if (sound == "tock1") {
-			navigator.vibrate([20]);
 			let tock1 = new Audio('mp3/tock1.mp3');
 			tock1.volume = 0.05;
 			tock1.loop = false;
 			tock1.play();
 		}
 		else if (sound == "click1") {
-			navigator.vibrate([25]);
+			navigator.vibrate([50]);
 			let click1 = new Audio('mp3/click1.mp3');
 			click1.loop = false;
 			click1.play();
 		}
 		if (sound == "click2") {
-			navigator.vibrate([20]);
+			navigator.vibrate([50]);
 			let click2 = new Audio('mp3/click2.mp3');
 			click2.loop = false;
 			click2.play();
