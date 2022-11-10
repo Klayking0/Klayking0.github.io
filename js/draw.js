@@ -707,6 +707,7 @@ function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLe
 	function ButtonDown() {
 		div.style.margin = "2% 3% 0 0";//top, right, bottom, left
 		chronoPlay = !chronoPlay;
+		soundPlay("pusherclick");
 		//console.log(chronoPlay);
 	};
 	function ButtonUp() {
@@ -746,6 +747,7 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
 	function ButtonDown() {
 		div.style.margin = "0 3% 2% 0";//top, right, bottom, left
 		chronoReset = 1;
+		soundPlay("pusherclick");
 	};
 	function ButtonUp() {
 		div.style.margin = "0 0 0 0";
@@ -901,13 +903,14 @@ function bezel(watch, bidirectional, clicks, size) {
 			//This handles unidirectional bezels
 			if (bezelAngModifier > bezelAngRestrictor) {
 				bezelAngRestrictor = bezelAngModifier
-				navigator.vibrate([25]); 
+				soundPlay("bezelclick");
 				console.log(bezelAngModifier + " " + bezelAngRestrictor);
 			}
 			else if (bezelAngModifier < bezelAngRestrictor) {
 				console.log("bloop");
 				if (bezelAngRestrictor >= 360-(360/clicks)) {
 					bezelAngRestrictor = 0
+					soundPlay("bezelclick");
 					console.log(bezelAngModifier + " " + bezelAngRestrictor);
 				}
 				else {
@@ -1102,6 +1105,27 @@ function analogueTime(beat, dateStart, dayEnd, dateReverse, dayReverse) {
 		//tick.play();	
 	
 	}, beat);//Watch beat rate passed into the function
+};
+
+soundPlay = function(sound) {
+	if (sound == "tick") {
+		navigator.vibrate([15]);
+		let tick = new Audio('mp3/tick1.mp3');
+		tick.loop = false;
+		tick.play();
+	}
+	else if (sound == "bezelclick") {
+		navigator.vibrate([25]);
+		let bezelclick = new Audio('mp3/bezelclick1.mp3');
+		bezelclick.loop = false;
+		bezelclick.play();
+	}
+	if (sound == "pusherclick") {
+		navigator.vibrate([15]);
+		let pusherclick = new Audio('mp3/pusherclick1.mp3');
+		pusherclick.loop = false;
+		pusherclick.play();
+	}
 };
 
 //https://www.freecodecamp.org/news/svg-javascript-tutorial/?msclkid=1949c10dd06e11ec9ebeb9f4e5aea11c
