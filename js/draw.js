@@ -832,8 +832,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	};
 
 	function mousedown(e) {
-		isDragging = true;
-		navigator.vibrate([100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 50, 100, 50, 100, 50, 100, 50, 100, 50, 100, 25, 100, 25, 100, 25, 100, 25, 100, 25, 100, 10, 100, 10, 100, 10, 100, 10, 100, 10, 100, 5, 100, 5, 100, 5, 100, 5, 100, 5, 100, 2.5, 100, 2.5, 100, 2.5, 100, 2.5, 100, 2.5, 100, 1, 100, 1, 100, 1, 100, 1, 100, 1, 100]);  
+		isDragging = true; 
 	
 		
 		//This stuff is copied from mousemove. Required to get initialDegrees on touch devices
@@ -900,8 +899,9 @@ function bezel(watch, bidirectional, clicks, size) {
 			
 			
 			//This handles unidirectional bezels
-			/*if (bezelAngModifier > bezelAngRestrictor) {
+			if (bezelAngModifier > bezelAngRestrictor) {
 				bezelAngRestrictor = bezelAngModifier
+				navigator.vibrate([25]); 
 				console.log(bezelAngModifier + " " + bezelAngRestrictor);
 			}
 			else if (bezelAngModifier < bezelAngRestrictor) {
@@ -914,7 +914,7 @@ function bezel(watch, bidirectional, clicks, size) {
 					bezelAngModifier = bezelAngRestrictor
 					console.log(bezelAngModifier + " " + bezelAngRestrictor);
 				}
-			}*/
+			}
 			
 
 			
