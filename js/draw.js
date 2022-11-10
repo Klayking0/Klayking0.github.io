@@ -820,6 +820,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	var initialDegrees = 0;//Initial value that the clickzone angle snaps to on mousedown
 	var angDifference = 0;//Calculates degreesFloored - initialDegrees to get difference in angle
 	var bezelAngModifier = 0;//Calculates bezelAng + angDifference to add rotation to visual bezel
+	var bezelAngRestrictor = 0;//Used to restrict bezel from turning clockwise
 	
 	bezelBox = div2.getBoundingClientRect(),
 	centerPoint = window.getComputedStyle(div2).transformOrigin,
@@ -832,6 +833,8 @@ function bezel(watch, bidirectional, clicks, size) {
 
 	function mousedown(e) {
 		isDragging = true;
+		navigator.vibrate([100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 50, 100, 50, 100, 50, 100, 50, 100, 50, 100, 25, 100, 25, 100, 25, 100, 25, 100, 25, 100, 10, 100, 10, 100, 10, 100, 10, 100, 10, 100, 5, 100, 5, 100, 5, 100, 5, 100, 5, 100, 2.5, 100, 2.5, 100, 2.5, 100, 2.5, 100, 2.5, 100, 1, 100, 1, 100, 1, 100, 1, 100, 1, 100]);  
+	
 		
 		//This stuff is copied from mousemove. Required to get initialDegrees on touch devices
 		var bezelEvent = e;
@@ -879,9 +882,42 @@ function bezel(watch, bidirectional, clicks, size) {
     	degrees = (radians * (180 / Math.PI) * -1) + 180;
 		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
 
+
+//This is the WIP unidirectional bezel from earlier
 		if (isDragging) {
 			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
 			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
+			//document.getElementById('title').innerHTML = "isDragging: " + isDragging + "</br>initialDegrees: " + initialDegrees + "</br>degreesFloored " + degreesFloored + "</br>angDifference " + angDifference + "</br>bezelAngModifier " + bezelAngModifier + "</br>bezelAngRestrictor " + bezelAngRestrictor + "</br>bezelAng " + bezelAng;
+			
+			//This forces the bezel angle to always be between 0-360 degrees
+			if (bezelAngModifier < 0) {
+				bezelAngModifier = 360 + bezelAngModifier
+			}
+			else if (bezelAngModifier >= 360) {
+				bezelAngModifier = bezelAngModifier - 360
+			}
+			document.getElementById('title').innerHTML = "isDragging: " + isDragging + "</br>initialDegrees: " + initialDegrees + "</br>degreesFloored " + degreesFloored + "</br>angDifference " + angDifference + "</br>bezelAngModifier " + bezelAngModifier + "</br>bezelAngRestrictor " + bezelAngRestrictor + "</br>bezelAng " + bezelAng;
+			
+			
+			//This handles unidirectional bezels
+			/*if (bezelAngModifier > bezelAngRestrictor) {
+				bezelAngRestrictor = bezelAngModifier
+				console.log(bezelAngModifier + " " + bezelAngRestrictor);
+			}
+			else if (bezelAngModifier < bezelAngRestrictor) {
+				console.log("bloop");
+				if (bezelAngRestrictor >= 360-(360/clicks)) {
+					bezelAngRestrictor = 0
+					console.log(bezelAngModifier + " " + bezelAngRestrictor);
+				}
+				else {
+					bezelAngModifier = bezelAngRestrictor
+					console.log(bezelAngModifier + " " + bezelAngRestrictor);
+				}
+			}*/
+			
+
+			
 			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
 			if (document.getElementById("bezellume")) {
 				document.getElementById("bezellume").style.transform = 'rotate('+bezelAngModifier+'deg)';
