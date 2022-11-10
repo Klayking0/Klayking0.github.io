@@ -707,7 +707,7 @@ function chronoPusherStart(watch, marginTop, marginRight, marginBottom, marginLe
 	function ButtonDown() {
 		div.style.margin = "2% 3% 0 0";//top, right, bottom, left
 		chronoPlay = !chronoPlay;
-		soundPlay("pusherclick");
+		soundPlay("click2");
 		//console.log(chronoPlay);
 	};
 	function ButtonUp() {
@@ -747,7 +747,7 @@ function chronoPusherReset(watch, marginTop, marginRight, marginBottom, marginLe
 	function ButtonDown() {
 		div.style.margin = "0 3% 2% 0";//top, right, bottom, left
 		chronoReset = 1;
-		soundPlay("pusherclick");
+		soundPlay("click2");
 	};
 	function ButtonUp() {
 		div.style.margin = "0 0 0 0";
@@ -764,7 +764,7 @@ function lightPusher(watch, marginTop, marginRight, marginBottom, marginLeft) {
 	div.innerHTML = "<img src='img/"+watch+"/lightpusher.png' id='lightpusherImg' class='imgDisplay'>";
 	//Creates the clickable element
 	var div2 = document.createElement("div");
-	div2.id = "lightpusherclickzone";
+	div2.id = "lightclick2zone";
 	div2.className = "clickzone";
 	if (marginTop || marginRight || marginBottom || marginLeft) {//Offsets the hand if arguments were provided
 		div2.setAttribute("style", "margin: "+marginTop+"% "+marginRight+"% "+marginBottom+"% "+marginLeft+"%");
@@ -822,7 +822,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	var initialDegrees = 0;//Initial value that the clickzone angle snaps to on mousedown
 	var angDifference = 0;//Calculates degreesFloored - initialDegrees to get difference in angle
 	var bezelAngModifier = 0;//Calculates bezelAng + angDifference to add rotation to visual bezel
-	var bezelAngRestrictor = 0;//Used to restrict bezel from turning clockwise
+	var bezelAngModifierPrev = 0;//The value of the above, one notch of rotation prior
 	
 	bezelBox = div2.getBoundingClientRect(),
 	centerPoint = window.getComputedStyle(div2).transformOrigin,
@@ -834,8 +834,7 @@ function bezel(watch, bidirectional, clicks, size) {
 	};
 
 	function mousedown(e) {
-		isDragging = true; 
-	
+		isDragging = true;
 		
 		//This stuff is copied from mousemove. Required to get initialDegrees on touch devices
 		var bezelEvent = e;
@@ -883,43 +882,14 @@ function bezel(watch, bidirectional, clicks, size) {
     	degrees = (radians * (180 / Math.PI) * -1) + 180;
 		degreesFloored = (360/clicks)*Math.floor(degrees/(360/clicks));
 
-
-//This is the WIP unidirectional bezel from earlier
 		if (isDragging) {
 			angDifference = degreesFloored - initialDegrees;//calculates a +/- degrees difference
 			bezelAngModifier = bezelAng + angDifference;//bezelAngModifier will be the visual element rotation angle
-			//document.getElementById('title').innerHTML = "isDragging: " + isDragging + "</br>initialDegrees: " + initialDegrees + "</br>degreesFloored " + degreesFloored + "</br>angDifference " + angDifference + "</br>bezelAngModifier " + bezelAngModifier + "</br>bezelAngRestrictor " + bezelAngRestrictor + "</br>bezelAng " + bezelAng;
 			
-			//This forces the bezel angle to always be between 0-360 degrees
-			if (bezelAngModifier < 0) {
-				bezelAngModifier = 360 + bezelAngModifier
+			if (bezelAngModifierPrev != bezelAngModifier) {
+				bezelAngModifierPrev = bezelAngModifier;
+				soundPlay("click1");
 			}
-			else if (bezelAngModifier >= 360) {
-				bezelAngModifier = bezelAngModifier - 360
-			}
-			document.getElementById('title').innerHTML = "isDragging: " + isDragging + "</br>initialDegrees: " + initialDegrees + "</br>degreesFloored " + degreesFloored + "</br>angDifference " + angDifference + "</br>bezelAngModifier " + bezelAngModifier + "</br>bezelAngRestrictor " + bezelAngRestrictor + "</br>bezelAng " + bezelAng;
-			
-			
-			//This handles unidirectional bezels
-			if (bezelAngModifier > bezelAngRestrictor) {
-				bezelAngRestrictor = bezelAngModifier
-				soundPlay("bezelclick");
-				console.log(bezelAngModifier + " " + bezelAngRestrictor);
-			}
-			else if (bezelAngModifier < bezelAngRestrictor) {
-				console.log("bloop");
-				if (bezelAngRestrictor >= 360-(360/clicks)) {
-					bezelAngRestrictor = 0
-					soundPlay("bezelclick");
-					console.log(bezelAngModifier + " " + bezelAngRestrictor);
-				}
-				else {
-					bezelAngModifier = bezelAngRestrictor
-					console.log(bezelAngModifier + " " + bezelAngRestrictor);
-				}
-			}
-			
-
 			
 			div.style.transform = 'rotate('+bezelAngModifier+'deg)';
 			if (document.getElementById("bezellume")) {
@@ -956,6 +926,7 @@ var interval;
 function analogueTime(beat, dateStart, dayEnd, dateReverse, dayReverse) {
 	
 	var chronoAng = 0;
+	var ticktock = 0;
 	//Finds any divs that can be rotated
 	var date = document.getElementById("date");
 	var day = document.getElementById("day");
@@ -1099,33 +1070,55 @@ function analogueTime(beat, dateStart, dayEnd, dateReverse, dayReverse) {
 			}
 		}
 
-		//Audio - Currently adds additional noise every time watch is swapped, and cannot autoplay on page load in Chrome
-		//let tick = new Audio('tick.mp3');
-		//tick.loop = true;
-		//tick.play();	
-	
+		if (beat > 10) {
+			if (ticktock == 0) {
+				soundPlay("tick1");
+				ticktock = 1;
+			}
+			else {
+				soundPlay("tock1");
+				ticktock = 0;
+			}
+		}
 	}, beat);//Watch beat rate passed into the function
 };
 
+//Sound function
+var interacted = 0;
 soundPlay = function(sound) {
-	if (sound == "tick") {
-		navigator.vibrate([15]);
-		let tick = new Audio('mp3/tick1.mp3');
-		tick.loop = false;
-		tick.play();
+	//Prevent audio from playing until user interacts (to prevent console errors)
+	document.addEventListener("touchstart", interaction);
+	document.addEventListener("mousedown", interaction);
+	function interaction() {
+		interacted = 1;
 	}
-	else if (sound == "bezelclick") {
-		navigator.vibrate([25]);
-		let bezelclick = new Audio('mp3/bezelclick1.mp3');
-		bezelclick.loop = false;
-		bezelclick.play();
-	}
-	if (sound == "pusherclick") {
-		navigator.vibrate([15]);
-		let pusherclick = new Audio('mp3/pusherclick1.mp3');
-		pusherclick.loop = false;
-		pusherclick.play();
+	//Add sounds here
+	if (interacted) {
+		if (sound == "tick1") {
+			navigator.vibrate([20]);
+			let tick1 = new Audio('mp3/tick1.mp3');
+			tick1.volume = 0.05;
+			tick1.loop = false;
+			tick1.play();
+		}
+		else if (sound == "tock1") {
+			navigator.vibrate([20]);
+			let tock1 = new Audio('mp3/tock1.mp3');
+			tock1.volume = 0.05;
+			tock1.loop = false;
+			tock1.play();
+		}
+		else if (sound == "click1") {
+			navigator.vibrate([25]);
+			let click1 = new Audio('mp3/click1.mp3');
+			click1.loop = false;
+			click1.play();
+		}
+		if (sound == "click2") {
+			navigator.vibrate([20]);
+			let click2 = new Audio('mp3/click2.mp3');
+			click2.loop = false;
+			click2.play();
+		}
 	}
 };
-
-//https://www.freecodecamp.org/news/svg-javascript-tutorial/?msclkid=1949c10dd06e11ec9ebeb9f4e5aea11c
