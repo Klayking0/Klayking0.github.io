@@ -1109,12 +1109,14 @@ soundPlay = function(sound) {
 		else if (sound == "click1") {
 			navigator.vibrate([30]);
 			let click1 = new Audio('mp3/click1.mp3');
+			click1.volume = 0.5;
 			click1.loop = false;
 			click1.play();
 		}
 		if (sound == "click2") {
-			navigator.vibrate([30]);
+			navigator.vibrate([50]);
 			let click2 = new Audio('mp3/click2.mp3');
+			click2.volume = 0.5;
 			click2.loop = false;
 			click2.play();
 		}
