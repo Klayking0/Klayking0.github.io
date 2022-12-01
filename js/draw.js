@@ -253,6 +253,23 @@ function watchSelect() {
 		bezelLume(watch);
 		analogueTime(142.8571428571429);//25,200vph (3.5Hz)
 	}
+	else if (watch == "speedmaster") {
+		watchcontainer(watch);
+		chronoPusherStart(watch, 0, 0, 50, 85); //Offset percentage: top, right, bottom, left
+		chronoPusherReset(watch, 45, 0, 0, 85); //Offset percentage: top, right, bottom, left
+		face(watch);
+		faceLume(watch);
+		second(watch, 0, 28.25, 0, 0); //Offset percentage: top, right, bottom, left
+		chronoMinute(watch, 0, -28.25, 0, 0);//Offset percentage: top, right, bottom, left
+		chronoHour(watch, 0, 0, -28.25, 0);//Offset percentage: top, right, bottom, left
+		hour(watch);
+		hourLume(watch);
+		minute(watch);
+		minuteLume(watch);
+		chronoSecond(watch);
+		chronoSecondLume(watch);
+		analogueTime(166.66667, 22, 3);//Beat rate, hour date starts changing, hour day ends changing
+	}
 	else if (watch == "westerland") {
 		watchcontainer(watch);
 		face(watch);
